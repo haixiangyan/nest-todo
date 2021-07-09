@@ -1,0 +1,8 @@
+{
+  "name": "nest-todo",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:Haixiang6123/nest-todo.git",
+  "author": "haixiangyan <haixiang6123@gmail.com>",
+  "license": "MIT"
+}
