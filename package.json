@@ -4,5 +4,9 @@
   "main": "index.js",
   "repository": "git@github.com:Haixiang6123/nest-todo.git",
   "author": "haixiangyan <haixiang6123@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "scripts": {
+    "start:client": "cd client && yarn start",
+    "start:server": "cd server && yarn start:dev"
+  }
 }
