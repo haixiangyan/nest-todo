@@ -1,24 +1,28 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, {FC, useEffect, useState} from 'react'
+import {Todo} from "../types/Todo"
 
-function App() {
+const App: FC = () => {
+  const [todos, setTodos] = useState<Todo[]>([]);
+  const [newTodoTitle, setNewTodoTitle] = useState<string>('');
+
+  useEffect(() => {
+    // 获取 todo
+  }, []);
+
+  const addTodo = () => {
+    // 添加 todo
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div>
+        <input placeholder="输入新待办事项" type="text"/>
+        <button onClick={addTodo}>添加</button>
+      </div>
+
+      <ul>
+        {todos.map(todo => <li key={todo.id}>{todo.title}</li>)}
+      </ul>
     </div>
   );
 }
