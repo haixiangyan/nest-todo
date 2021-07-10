@@ -18,12 +18,12 @@ export class TodoController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
+  findOne(@Param('id') id: number) {
     return this.todoService.findOne(id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateTodoDto: UpdateTodoDto) {
+  update(@Param('id') id: number, @Body() updateTodoDto: UpdateTodoDto) {
     return this.todoService.update(id, updateTodoDto);
   }
 
