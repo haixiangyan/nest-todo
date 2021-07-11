@@ -8,8 +8,10 @@ const App: FC = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [todos, setTodos] = useState<Todo[]>([]);
   // new todo
-  const [newTodoTitle, setNewTodoTitle] = useState<string>('');
-  const [newTodoDesc, setNewTodoDesc] = useState('');
+  const [newTodo, setNewTodo] = useState<Omit<Todo, 'id' | 'status'>>({
+    title: '',
+    description: '',
+  });
 
   useEffect(() => {
     fetchTodos().then();
@@ -17,29 +19,28 @@ const App: FC = () => {
 
   const fetchTodos = async () => {
     setLoading(true);
-    const { data } = await axios.request<Todo[]>(({ baseURL, url: '/todo', method: 'GET' }))
+    const { data } = await axios.request<Todo[]>(({ baseURL, url: '/todo', method: 'GET' }));
     setTodos(data);
     setLoading(false);
-  }
+  };
 
   const addTodo = async () => {
     setLoading(true);
-    const newTodo: Omit<Todo, 'id'> = {
-      title: newTodoTitle,
-      description: newTodoDesc,
-      status: 0
-    }
-    await axios.request<Todo>(({ baseURL, url: '/todo', method: 'POST', data: newTodo }))
+    const newTodoData: Omit<Todo, 'id'> = {
+      ...newTodo,
+      status: 0,
+    };
+    await axios.request<Todo>(({ baseURL, url: '/todo', method: 'POST', data: newTodoData }));
     setLoading(false);
-    await fetchTodos()
+    await fetchTodos();
   };
 
   const deleteTodo = async (id: number) => {
     setLoading(true);
-    await axios.request<Todo>(({ baseURL, url: `/todo/${id}`, method: 'DELETE' }))
+    await axios.request<Todo>(({ baseURL, url: `/todo/${id}`, method: 'DELETE' }));
     setLoading(false);
-    await fetchTodos()
-  }
+    await fetchTodos();
+  };
 
   return (
     <div className='App'>
@@ -47,15 +48,23 @@ const App: FC = () => {
 
       <div>
         <div>
-          <input onChange={e => setNewTodoTitle(e.target.value)} placeholder='输入新待办事项' type='text' />
+          <input
+            value={newTodo.title}
+            onChange={e => setNewTodo({ ...newTodo, title: e.target.value })}
+            placeholder='输入新待办事项'
+            type='text'
+          />
         </div>
         <div>
-          <textarea value={newTodoDesc} onChange={e => setNewTodoDesc(e.target.value)} cols={30} rows={10}/>
+          <textarea
+            value={newTodo.description}
+            onChange={e => setNewTodo({ ...newTodo, description: e.target.value })} cols={30} rows={10}
+          />
         </div>
         <button onClick={addTodo}>添加</button>
       </div>
 
-      <hr/>
+      <hr />
 
       <ul>
         {todos.map(todo => (
