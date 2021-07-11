@@ -4,8 +4,8 @@ export enum TodoStatus {
 }
 
 export interface Todo {
+  id: number; // 自增 id
   title: string; // 标题
-  id?: string; // 自增 id
   description?: string; // 具体内容
   status: TodoStatus; // 状态
 }
