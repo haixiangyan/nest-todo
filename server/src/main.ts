@@ -7,7 +7,6 @@ const startSwagger = (app) => {
     .setTitle('待办事项')
     .setDescription('nest-todo 的 API 文档')
     .setVersion('1.0')
-    .addTag('todo')
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('docs', app, document);

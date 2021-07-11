@@ -7,10 +7,10 @@ export enum TodoStatus {
 
 export class Todo {
   @ApiProperty()
-  title: string; // 标题
+  id: number; // 自增 id
 
   @ApiProperty()
-  id?: number; // 自增 id
+  title: string; // 标题
 
   @ApiProperty()
   description?: string; // 具体内容
