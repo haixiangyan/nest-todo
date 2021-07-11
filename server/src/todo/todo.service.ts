@@ -2,12 +2,13 @@ import { Injectable } from '@nestjs/common';
 import { CreateTodoDto } from './dto/create-todo.dto';
 import { UpdateTodoDto } from './dto/update-todo.dto';
 import { PrismaService } from '../prisma/prisma.service';
+import { Todo } from './entities/todo.entity';
 
 @Injectable()
 export class TodoService {
   constructor(private prisma: PrismaService) {}
 
-  create(createTodoDto: CreateTodoDto) {
+  create(createTodoDto: CreateTodoDto): Promise<Todo> {
     const { title, description } = createTodoDto;
 
     return this.prisma.todo.create({
@@ -15,17 +16,17 @@ export class TodoService {
     });
   }
 
-  findAll() {
+  findAll(): Promise<Todo[]> {
     return this.prisma.todo.findMany();
   }
 
-  findOne(id: number) {
+  findOne(id: number): Promise<Todo> {
     return this.prisma.todo.findUnique({
       where: { id }
     })
   }
 
-  update(id: number, updateTodoDto: UpdateTodoDto) {
+  update(id: number, updateTodoDto: UpdateTodoDto): Promise<Todo> {
     const { title, description, status } = updateTodoDto;
 
     return this.prisma.todo.update({
@@ -34,7 +35,7 @@ export class TodoService {
     })
   }
 
-  remove(id: number) {
+  remove(id: number): Promise<Todo> {
     return this.prisma.todo.delete({
       where: { id }
     })
