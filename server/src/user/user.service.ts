@@ -25,6 +25,12 @@ export class UserService {
     })
   }
 
+  findByUsername(username: string) {
+    return this.prisma.user.findFirst({
+      where: { username }
+    })
+  }
+
   update(id: number, updateUserDto: UpdateUserDto) {
     const { username, password, email } = updateUserDto;
 
