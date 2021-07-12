@@ -12,7 +12,8 @@ const PrivateRoute: FC<Props> = (props) => {
   let auth = useContext(authContext);
 
   const renderRoute = ({location}: any) => {
-    if (auth.user) {
+    const token = localStorage.getItem('token');
+    if (auth.user || token) {
       return children;
     }
     return <Redirect to={{ pathname: "/login", state: { from: location } }} />

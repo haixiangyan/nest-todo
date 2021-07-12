@@ -20,4 +20,13 @@ http.interceptors.request.use((config) => {
   return Promise.reject(error);
 });
 
+http.interceptors.response.use((response) => {
+  return response;
+}, (error) => {
+  if (error.message.includes('401')) {
+    window.location.replace('/login');
+  }
+  return Promise.reject(error);
+});
+
 export default http;

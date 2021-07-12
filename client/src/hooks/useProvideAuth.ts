@@ -2,18 +2,6 @@ import {useState} from "react"
 import {IUser} from "../contexts/authContext"
 import http from "../http"
 
-const fakeAuth = {
-  isAuthenticated: false,
-  login(cb: Function) {
-    fakeAuth.isAuthenticated = true;
-    setTimeout(cb, 100); // fake async
-  },
-  logout(cb: Function) {
-    fakeAuth.isAuthenticated = false;
-    setTimeout(cb, 100);
-  }
-};
-
 const useProvideAuth = () => {
   const [user, setUser] = useState<IUser | null>(null);
 
@@ -22,6 +10,7 @@ const useProvideAuth = () => {
       const response = await http.post('/auth/login', data);
 
       localStorage.setItem('token', response.data.access_token);
+      localStorage.setItem('user', JSON.stringify(response.data.user));
       setUser(response.data.user);
 
       return true;
