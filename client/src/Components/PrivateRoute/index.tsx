@@ -1,7 +1,7 @@
 import * as React from "react"
-import {FC, useContext} from "react"
+import {FC} from "react"
 import {RouteProps, Redirect, Route} from "react-router-dom"
-import authContext from "../../contexts/authContext"
+import useAuth from "../../hooks/useAuth"
 
 interface Props extends RouteProps{
 }
@@ -9,14 +9,14 @@ interface Props extends RouteProps{
 const PrivateRoute: FC<Props> = (props) => {
   const { children, ...rest } = props;
 
-  let auth = useContext(authContext);
+  const auth = useAuth();
 
   const renderRoute = ({location}: any) => {
-    const token = localStorage.getItem('token');
-    if (auth.user || token) {
-      return children;
+    if (!auth.token) {
+      return <Redirect to={{ pathname: "/login", state: { from: location } }} />
     }
-    return <Redirect to={{ pathname: "/login", state: { from: location } }} />
+
+    return children;
   }
 
   return (

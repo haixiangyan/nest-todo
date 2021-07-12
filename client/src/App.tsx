@@ -3,12 +3,12 @@ import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
 import Todo from "./pages/Todo"
 import Login from "./pages/Login"
 import authContext from "./contexts/authContext"
-import useProvideAuth from "./hooks/useProvideAuth"
+import useAuth from "./hooks/useAuth"
 import AuthButton from "./Components/AuthButton"
 import PrivateRoute from "./Components/PrivateRoute"
 
 const App: FC = () => {
-  const auth = useProvideAuth();
+  const auth = useAuth();
   return (
     <authContext.Provider value={auth}>
       <Router>

@@ -1,16 +1,16 @@
 import * as React from "react"
-import {FC, useContext} from "react"
+import {FC} from "react"
 import {useHistory} from "react-router-dom"
-import authContext from "../../contexts/authContext"
+import useAuth from "../../hooks/useAuth"
 
 interface Props {
 }
 
 const AuthButton: FC<Props> = () => {
-  let history = useHistory();
-  let auth = useContext(authContext);
+  const history = useHistory();
+  const auth = useAuth();
 
-  if (!auth.user) {
+  if (!auth.token) {
     return <p>你还没有登录</p>
   }
 
