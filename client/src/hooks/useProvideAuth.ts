@@ -1,7 +1,6 @@
 import {useState} from "react"
-import axios from "axios"
-import {baseURL} from "../constants"
 import {IUser} from "../contexts/authContext"
+import http from "../http"
 
 const fakeAuth = {
   isAuthenticated: false,
@@ -20,15 +19,10 @@ const useProvideAuth = () => {
 
   const login = async (data: any) => {
     try {
-      const response = await axios.request(({
-        baseURL,
-        url: '/auth/login',
-        method: 'POST',
-        data
-      }));
+      const response = await http.post('/auth/login', { data })
 
       localStorage.setItem('token', response.data.access_token);
-      // TODO: 设置 user
+      setUser(response.data.user);
 
       return true;
     } catch (e) {
