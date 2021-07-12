@@ -3,20 +3,19 @@ import {FC, useContext} from "react"
 import {useHistory, useLocation} from "react-router-dom"
 import authContext from "../../contexts/authContext"
 
-interface Props {
-}
-
-const Login: FC<Props> = () => {
-  let history = useHistory();
-  let location = useLocation();
-  let auth = useContext(authContext);
+const Login: FC = () => {
+  const history = useHistory();
+  const location = useLocation();
+  const auth = useContext(authContext);
 
   // @ts-ignore
-  let { from } = location.state || { from: { pathname: "/" } };
-  let login = () => {
-    auth.signin(() => {
-      history.replace(from);
-    });
+  const { from } = location.state || { from: { pathname: "/" } };
+
+  const login = async () => {
+    const isLogin = await auth.login();
+    if (isLogin) {
+      history.replace(from)
+    }
   };
 
   return (

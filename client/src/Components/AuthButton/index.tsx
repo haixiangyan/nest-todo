@@ -17,7 +17,7 @@ const AuthButton: FC<Props> = () => {
   return (
     <p>
       Welcome!{" "}
-      <button onClick={() => auth.signout(() => history.push("/"))}>
+      <button onClick={() => auth.login(() => history.push("/"))}>
         登出
       </button>
     </p>

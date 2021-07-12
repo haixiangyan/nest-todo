@@ -1,6 +1,21 @@
 import {createContext} from "react"
 
-const authContext = createContext<any>({ auth: { user: {}}});
+export interface IUser {
+  username: string;
+  email?: string;
+}
+
+interface IAuth {
+  user: IUser | null;
+  login: Function;
+  logout: Function;
+}
+
+const authContext = createContext<IAuth>({
+  login: async () => {},
+  logout: async () => {},
+  user: null,
+});
 
 export default authContext;
 

@@ -1,4 +1,7 @@
 import {useState} from "react"
+import axios from "axios"
+import {baseURL} from "../constants"
+import {IUser} from "../contexts/authContext"
 
 const fakeAuth = {
   isAuthenticated: false,
@@ -13,23 +16,23 @@ const fakeAuth = {
 };
 
 const useProvideAuth = () => {
-  const [user, setUser] = useState<string | null>(null);
+  const [user, setUser] = useState<IUser | null>(null);
 
-  const login = (cb: Function) => {
-    return fakeAuth.login(() => {
-      setUser("user");
-      cb();
-    });
+  const login = async (cb: Function) => {
+    const response = await axios.request(({
+      baseURL,
+      url: '/auth/login',
+      method: 'POST'
+    }))
+    cb(response);
   };
 
-  const logout = (cb: Function) => {
-    return fakeAuth.logout(() => {
-      setUser(null);
-      cb();
-    });
+  const logout = async (cb: Function) => {
+    localStorage.removeItem('token');
+    cb();
   };
 
-  return { user, login, logout };
+  return { setUser, user, login, logout };
 }
 
 export default useProvideAuth;
