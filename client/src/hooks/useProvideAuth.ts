@@ -18,18 +18,26 @@ const fakeAuth = {
 const useProvideAuth = () => {
   const [user, setUser] = useState<IUser | null>(null);
 
-  const login = async (cb: Function) => {
-    const response = await axios.request(({
-      baseURL,
-      url: '/auth/login',
-      method: 'POST'
-    }))
-    cb(response);
+  const login = async (data: any) => {
+    try {
+      const response = await axios.request(({
+        baseURL,
+        url: '/auth/login',
+        method: 'POST',
+        data
+      }));
+
+      localStorage.setItem('token', response.data.access_token);
+      // TODO: 设置 user
+
+      return true;
+    } catch (e) {
+      return false;
+    }
   };
 
-  const logout = async (cb: Function) => {
+  const logout = async () => {
     localStorage.removeItem('token');
-    cb();
   };
 
   return { setUser, user, login, logout };
