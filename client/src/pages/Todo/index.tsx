@@ -1,15 +1,14 @@
 import React, {FC, useEffect, useState} from 'react'
 import {ITodo} from "../../../types/Todo"
 import http from "../../http"
+import TodoForm from "../../Components/TodoForm"
 
 const Todo: FC = () => {
   const [loading, setLoading] = useState<boolean>(false)
   const [todos, setTodos] = useState<ITodo[]>([])
-  // new todo
-  const [newTodo, setNewTodo] = useState<Omit<ITodo, 'id' | 'status'>>({
-    title: '',
-    description: '',
-  })
+
+  const [formType, setFormType] = useState<'add' | 'update' | null>(null)
+  const [selected, setSelected] = useState<ITodo | undefined>()
 
   useEffect(() => {
     fetchTodos().then()
@@ -17,25 +16,25 @@ const Todo: FC = () => {
 
   const fetchTodos = async () => {
     setLoading(true)
-    const {data} = await http.get<ITodo[]>('/todo');
+    const {data} = await http.get<ITodo[]>('/todo')
     setTodos(data)
     setLoading(false)
   }
 
-  const addTodo = async () => {
+  const submitTodo = async (newTodo: Partial<ITodo>) => {
     setLoading(true)
-    const newTodoData: Omit<ITodo, 'id'> = {
-      ...newTodo,
-      status: 0,
+    if (formType === 'add') {
+      await http.post<ITodo>('/todo', newTodo)
+    } else {
+      await http.patch<ITodo>('/todo', newTodo)
     }
-    await http.post<ITodo>('/todo', newTodoData);
     setLoading(false)
     await fetchTodos()
   }
 
   const deleteTodo = async (id: number) => {
     setLoading(true)
-    await http.delete<ITodo>(`/todo/${id}`);
+    await http.delete<ITodo>(`/todo/${id}`)
     setLoading(false)
     await fetchTodos()
   }
@@ -45,22 +44,19 @@ const Todo: FC = () => {
       {loading && <div>Loading...</div>}
 
       <div>
-        <div>
-          <input
-            value={newTodo.title}
-            onChange={e => setNewTodo({...newTodo, title: e.target.value})}
-            placeholder='输入新待办事项'
-            type='text'
-          />
-        </div>
-        <div>
-          <textarea
-            value={newTodo.description}
-            onChange={e => setNewTodo({...newTodo, description: e.target.value})} cols={30} rows={10}
-          />
-        </div>
-        <button onClick={addTodo}>添加</button>
+        <button onClick={() => {
+          setFormType('add')
+          setSelected(undefined)
+        }}>
+          添加新待办
+        </button>
       </div>
+
+      {(formType === 'add' || selected) && (
+        <div>
+          <TodoForm todo={selected} onSubmit={submitTodo}/>
+        </div>
+      )}
 
       <hr/>
 
@@ -71,6 +67,14 @@ const Todo: FC = () => {
             <small>具体内容：{todo.description}</small>
             <div>
               <button onClick={() => deleteTodo(todo.id)}>移除</button>
+              <button
+                onClick={() => {
+                  setFormType('update')
+                  setSelected(todo)
+                }}
+              >
+                编辑
+              </button>
             </div>
           </li>
         ))}
