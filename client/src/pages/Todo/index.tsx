@@ -28,7 +28,7 @@ const Todo: FC = () => {
       ...newTodo,
       status: 0,
     }
-    await http.post<ITodo>('/todo', { data: newTodoData });
+    await http.post<ITodo>('/todo', newTodoData);
     setLoading(false)
     await fetchTodos()
   }
