@@ -17,14 +17,14 @@ import { JwtAuthGuard } from './jwt-auth.guard';
     JwtModule.register({
       secret: jwtConstants.secret,
       signOptions: { expiresIn: '3m' },
-    })
+    }),
   ],
   controllers: [AuthController],
   providers: [
     AuthService,
     LocalStrategy,
     JwtStrategy,
-    { provide: APP_GUARD, useClass: JwtAuthGuard }
+    { provide: APP_GUARD, useClass: JwtAuthGuard },
   ],
   exports: [AuthService],
 })

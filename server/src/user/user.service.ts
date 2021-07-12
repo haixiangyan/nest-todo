@@ -11,7 +11,7 @@ export class UserService {
     const { username, password, email } = createUserDto;
 
     return this.prisma.user.create({
-      data: { username, password, email }
+      data: { username, password, email },
     });
   }
 
@@ -21,28 +21,28 @@ export class UserService {
 
   findOne(id: number) {
     return this.prisma.user.findUnique({
-      where: { id }
-    })
+      where: { id },
+    });
   }
 
   findByUsername(username: string) {
     return this.prisma.user.findFirst({
-      where: { username }
-    })
+      where: { username },
+    });
   }
 
   update(id: number, updateUserDto: UpdateUserDto) {
     const { username, password, email } = updateUserDto;
 
-    return this.prisma.user.update(({
+    return this.prisma.user.update({
       data: { username, password, email },
       where: { id },
-    }))
+    });
   }
 
   remove(id: number) {
     return this.prisma.user.delete({
-      where: { id }
-    })
+      where: { id },
+    });
   }
 }

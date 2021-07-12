@@ -12,7 +12,7 @@ export class TodoService {
     const { title, description } = createTodoDto;
 
     return this.prisma.todo.create({
-      data: { title, description, status: 1 }
+      data: { title, description, status: 1 },
     });
   }
 
@@ -22,8 +22,8 @@ export class TodoService {
 
   findOne(id: number): Promise<Todo> {
     return this.prisma.todo.findUnique({
-      where: { id }
-    })
+      where: { id },
+    });
   }
 
   update(id: number, updateTodoDto: UpdateTodoDto): Promise<Todo> {
@@ -32,12 +32,12 @@ export class TodoService {
     return this.prisma.todo.update({
       data: { title, description, status },
       where: { id },
-    })
+    });
   }
 
   remove(id: number): Promise<Todo> {
     return this.prisma.todo.delete({
-      where: { id }
-    })
+      where: { id },
+    });
   }
 }

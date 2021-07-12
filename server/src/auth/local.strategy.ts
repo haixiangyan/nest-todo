@@ -11,7 +11,11 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
     super({ passReqToCallback: true });
   }
 
-  async validate(request: Request, username: string, password: string): Promise<Omit<User, 'password'>> {
+  async validate(
+    request: Request,
+    username: string,
+    password: string,
+  ): Promise<Omit<User, 'password'>> {
     const contextId = ContextIdFactory.getByRequest(request);
 
     // 现在 authService 是一个 request-scoped provider
