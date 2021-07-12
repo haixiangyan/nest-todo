@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { UserService } from '../user/user.service';
 import { User } from '../user/entities/user.entity';
 import { JwtService } from '@nestjs/jwt';
+import { jwtConstants } from './constants';
 
 @Injectable()
 export class AuthService {
@@ -33,6 +34,10 @@ export class AuthService {
       sub: user.id,
     };
 
-    return { access_token: this.jwtService.sign(payload), user: restUser };
+    return {
+      token: this.jwtService.sign(payload),
+      user: restUser,
+      expiresIn: jwtConstants.expiresIn,
+    };
   }
 }
