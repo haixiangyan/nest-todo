@@ -8,5 +8,8 @@
   "scripts": {
     "start:client": "cd client && yarn start",
     "start:server": "cd server && yarn start:dev"
+  },
+  "dependencies": {
+    "@nestjs/serve-static": "^2.2.2"
   }
 }
