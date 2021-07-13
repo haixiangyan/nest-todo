@@ -13,4 +13,7 @@ export class CreateTodoDto {
   @ApiProperty({ required: false })
   @IsNumber()
   status?: TodoStatus; // 状态
+
+  @ApiProperty({ required: false })
+  media?: string;
 }

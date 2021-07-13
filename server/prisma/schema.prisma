@@ -25,4 +25,5 @@ model Todo {
   status    Int
   author    User?    @relation(fields: [authorId], references: [id])
   authorId  Int?
+  media     String?
 }
