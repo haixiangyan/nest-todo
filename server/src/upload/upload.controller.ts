@@ -15,7 +15,7 @@ export class UploadController {
   uploadFile(@UploadedFile() file: Express.Multer.File) {
     const baseURL = 'http://localhost:4200/';
     return {
-      file: baseURL + file.path + file.filename,
+      file: baseURL + file.path,
     };
   }
 
