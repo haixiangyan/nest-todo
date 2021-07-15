@@ -8,12 +8,13 @@ import {
 import { FileInterceptor } from '@nestjs/platform-express';
 import { Express } from 'express';
 
+const baseURL = 'http://localhost:4200/static/';
+
 @Controller('upload')
 export class UploadController {
   @Post('file')
   @UseInterceptors(FileInterceptor('file'))
   uploadFile(@UploadedFile() file: Express.Multer.File) {
-    const baseURL = 'http://localhost:4200/static';
     return {
       file: baseURL + file.originalname,
     };
@@ -23,7 +24,7 @@ export class UploadController {
   @UseInterceptors(FileInterceptor('files'))
   uploadFiles(@UploadedFiles() files: Array<Express.Multer.File>) {
     return {
-      files: files.map((f) => f.buffer.toString()),
+      files: files.map((f) => baseURL + f.originalname),
     };
   }
 }
