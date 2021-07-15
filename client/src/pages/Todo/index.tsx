@@ -27,7 +27,7 @@ const Todo: FC = () => {
     if (formType === "add") {
       await http.post<ITodo>("/todo", newTodo);
     } else {
-      await http.patch<ITodo>("/todo", newTodo);
+      await http.patch<ITodo>(`/todo/${newTodo.id}`, newTodo);
     }
     setLoading(false);
     await fetchTodos();
