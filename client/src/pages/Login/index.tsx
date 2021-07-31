@@ -1,7 +1,7 @@
 import * as React from "react"
 import {FC, useContext, useState} from "react"
 import {useHistory} from "react-router-dom"
-import authContext from "../../contexts/authContext"
+import authContext from "../../contexts/AuthContext"
 
 const Login: FC = () => {
   const history = useHistory();
@@ -15,6 +15,7 @@ const Login: FC = () => {
 
   const login = async () => {
     const isLogin = await auth.login({...authForm});
+    console.log(isLogin);
     if (isLogin) {
       setMsg('登录成功');
       history.push('/')

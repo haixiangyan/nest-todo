@@ -1,18 +1,20 @@
 import {createContext} from "react"
 
-interface IAuth {
+export interface Auth {
   token: string | null;
   setToken: Function;
   login: Function;
   logout: Function;
+  isAdmin: boolean,
 }
 
-const authContext = createContext<IAuth>({
+const AuthContext = createContext<Auth>({
   login: async () => {},
   logout: async () => {},
   token: null,
+  isAdmin: false,
   setToken: () => {},
 });
 
-export default authContext;
+export default AuthContext;
 

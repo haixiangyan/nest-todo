@@ -1,7 +1,7 @@
 import * as React from "react"
-import {FC} from "react"
+import { FC, useContext } from 'react';
 import {RouteProps, Redirect, Route} from "react-router-dom"
-import useAuth from "../../hooks/useAuth"
+import AuthContext from '../../contexts/AuthContext';
 
 interface Props extends RouteProps{
 }
@@ -9,10 +9,10 @@ interface Props extends RouteProps{
 const PrivateRoute: FC<Props> = (props) => {
   const { children, ...rest } = props;
 
-  const auth = useAuth();
+  const { token } = useContext(AuthContext);
 
   const renderRoute = ({location}: any) => {
-    if (!auth.token) {
+    if (!token) {
       return <Redirect to={{ pathname: "/login", state: { from: location } }} />
     }
 
