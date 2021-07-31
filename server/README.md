@@ -13,7 +13,7 @@ CREATE DATABASE nest_todo
 然后初始化数据库表。
 
 ```shell
-npm run migration:generate init
+npm run migration:generate run
 ```
 
 最后，本地跑 Nest 项目。
