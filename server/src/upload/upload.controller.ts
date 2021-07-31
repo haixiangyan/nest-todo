@@ -8,6 +8,7 @@ import {
 import { FileInterceptor } from '@nestjs/platform-express';
 import { Express } from 'express';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { baseURL } from './constants';
 
 @ApiTags('文件上传')
 @ApiBearerAuth()
@@ -16,7 +17,6 @@ export class UploadController {
   @Post('file')
   @UseInterceptors(FileInterceptor('file'))
   uploadFile(@UploadedFile() file: Express.Multer.File) {
-    const baseURL = 'http://localhost:4200/';
     return {
       file: baseURL + file.originalname,
     };
