@@ -2,6 +2,26 @@
 
 使用 Nest.js 实现的 Todo App 后端 API。
 
+## 本地运行
+
+先在 `mysql` 或者 `mariadb` 里添加 `nest_todo` 数据库。
+
+```sql
+CREATE DATABASE nest_todo
+```
+
+然后初始化数据库表。
+
+```shell
+npm run migration:generate init
+```
+
+最后，本地跑 Nest 项目。
+
+```shell
+npm run start:dev
+```
+
 ## 功能
 
 - [x] /user 接口
