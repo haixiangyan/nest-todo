@@ -17,7 +17,7 @@ const List: FC<Props> = (props) => {
           <p>标题：{todo.title}</p>
           {todo.media && (
             <div>
-              <img src={todo.media} alt="图片" />
+              <img width={200} src={todo.media} alt="图片" />
             </div>
           )}
           <small>具体内容：{todo.description}</small>

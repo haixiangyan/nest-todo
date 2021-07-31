@@ -57,7 +57,7 @@ const TodoForm: FC<Props> = (props) => {
       </div>
       {newTodo.media && (
         <div>
-          <img src={newTodo.media} alt="预览" />
+          <img width={200} src={newTodo.media} alt="预览" />
         </div>
       )}
       <button onClick={() => onSubmit(newTodo)}>提交</button>

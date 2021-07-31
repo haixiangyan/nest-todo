@@ -29,6 +29,8 @@ const Todo: FC = () => {
     } else {
       await http.patch<ITodo>(`/todo/${newTodo.id}`, newTodo);
     }
+    setSelected(undefined);
+    setFormType(null);
     setLoading(false);
     await fetchTodos();
   };
