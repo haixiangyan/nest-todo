@@ -16,6 +16,7 @@ model User {
   username  String?
   password String
   todos Todo[]
+  is_admin Int  @default(0)
 }
 
 model Todo {

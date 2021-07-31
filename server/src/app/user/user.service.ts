@@ -45,4 +45,13 @@ export class UserService {
       where: { id },
     });
   }
+
+  checkAdmin(id: number) {
+    return this.prisma.user.findFirst({
+      where: {
+        id,
+        is_admin: 1,
+      },
+    });
+  }
 }

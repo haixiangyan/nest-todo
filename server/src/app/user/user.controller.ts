@@ -12,10 +12,11 @@ import {
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiBody, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Roles } from '../../roles/roles.decorator';
 import { Role } from '../../roles/roles.interface';
 import { RolesGuard } from '../auth/guards/roles.guard';
+import { User } from './entities/user.entity';
 
 @ApiTags('user')
 @ApiBearerAuth()
@@ -23,23 +24,29 @@ import { RolesGuard } from '../auth/guards/roles.guard';
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
+  @ApiBody({ type: CreateUserDto })
+  @ApiResponse({ type: User })
   @Post()
   create(@Body() createUserDto: CreateUserDto) {
     return this.userService.create(createUserDto);
   }
 
-  @Get()
+  @ApiResponse({ type: [User] })
   @Roles(Role.Admin)
   @UseGuards(RolesGuard)
+  @Get()
   findAll() {
     return this.userService.findAll();
   }
 
+  @ApiResponse({ type: User })
   @Get(':id')
   findOne(@Param('id', ParseIntPipe) id: string) {
     return this.userService.findOne(+id);
   }
 
+  @ApiBody({ type: UpdateUserDto })
+  @ApiResponse({ type: User })
   @Patch(':id')
   update(
     @Param('id', ParseIntPipe) id: string,

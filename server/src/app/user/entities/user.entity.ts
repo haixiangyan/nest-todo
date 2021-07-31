@@ -1,15 +1,18 @@
 import { ApiProperty } from '@nestjs/swagger';
 
 export class User {
-  @ApiProperty()
-  id: number; // 自增 id
+  @ApiProperty({ description: '自增 id' })
+  id: number;
 
-  @ApiProperty()
-  username: string; // 标题
+  @ApiProperty({ description: '标题' })
+  username: string;
 
-  @ApiProperty()
-  password: string; // 密码
+  @ApiProperty({ description: '密码' })
+  password: string;
 
-  @ApiProperty()
-  email: string; // 邮箱
+  @ApiProperty({ description: '邮箱' })
+  email: string;
+
+  @ApiProperty({ description: '是否为管理员' })
+  is_admin?: number;
 }
