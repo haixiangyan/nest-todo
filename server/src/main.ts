@@ -3,6 +3,7 @@ import { AppModule } from './app/app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { join } from 'path';
 import { NestExpressApplication } from '@nestjs/platform-express';
+import { HttpExceptionFilter } from './filters/http-exception.filter';
 
 const setupSwagger = (app) => {
   const config = new DocumentBuilder()
@@ -12,7 +13,11 @@ const setupSwagger = (app) => {
     .setVersion('1.0')
     .build();
   const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('docs', app, document);
+  SwaggerModule.setup('docs', app, document, {
+    swaggerOptions: {
+      persistAuthorization: true,
+    },
+  });
 };
 
 async function bootstrap() {
@@ -24,6 +29,7 @@ async function bootstrap() {
   });
 
   app.useStaticAssets(join(__dirname, '..', 'upload_dist'));
+  app.useGlobalFilters(new HttpExceptionFilter());
 
   setupSwagger(app);
 
