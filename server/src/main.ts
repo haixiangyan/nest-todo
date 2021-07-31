@@ -4,6 +4,7 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 const setupSwagger = (app) => {
   const config = new DocumentBuilder()
+    .addBearerAuth()
     .setTitle('待办事项')
     .setDescription('nest-todo 的 API 文档')
     .setVersion('1.0')
