@@ -39,12 +39,12 @@ export class TodoController {
   update(
     @Param('id', ParseIntPipe) id: number,
     @Body() updateTodoDto: UpdateTodoDto,
-  ): Promise<Todo> {
+  ) {
     return this.todoService.update(id, updateTodoDto);
   }
 
   @Delete(':id')
-  remove(@Param('id', ParseIntPipe) id: number): Promise<Todo> {
+  remove(@Param('id', ParseIntPipe) id: number) {
     return this.todoService.remove(id);
   }
 }

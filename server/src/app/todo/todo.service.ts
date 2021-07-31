@@ -1,43 +1,48 @@
 import { Injectable } from '@nestjs/common';
 import { CreateTodoDto } from './dto/create-todo.dto';
 import { UpdateTodoDto } from './dto/update-todo.dto';
-import { PrismaService } from '../../prisma/prisma.service';
 import { Todo } from './entities/todo.entity';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class TodoService {
-  constructor(private prisma: PrismaService) {}
+  constructor(
+    @InjectRepository(Todo) private TodoRepository: Repository<Todo>,
+  ) {}
 
-  create(createTodoDto: CreateTodoDto): Promise<Todo> {
+  async create(createTodoDto: CreateTodoDto): Promise<Todo> {
     const { title, description, media } = createTodoDto;
 
-    return this.prisma.todo.create({
-      data: { title, description, status: 1, media },
-    });
+    const todo = new Todo();
+    todo.title = title;
+    todo.description = description;
+    todo.status = 1;
+    todo.media = media;
+
+    return this.TodoRepository.create(todo);
   }
 
-  findAll(): Promise<Todo[]> {
-    return this.prisma.todo.findMany();
+  async findAll(): Promise<Todo[]> {
+    return this.TodoRepository.find();
   }
 
   findOne(id: number): Promise<Todo> {
-    return this.prisma.todo.findUnique({
-      where: { id },
-    });
+    return this.TodoRepository.findOne(id);
   }
 
-  update(id: number, updateTodoDto: UpdateTodoDto): Promise<Todo> {
+  async update(id: number, updateTodoDto: UpdateTodoDto) {
     const { title, description, status, media } = updateTodoDto;
 
-    return this.prisma.todo.update({
-      data: { title, description, status, media },
-      where: { id },
-    });
+    return this.TodoRepository.update(
+      { id },
+      { title, description, status, media },
+    );
   }
 
-  remove(id: number): Promise<Todo> {
-    return this.prisma.todo.delete({
-      where: { id },
+  async remove(id: number) {
+    return this.TodoRepository.delete({
+      id,
     });
   }
 }

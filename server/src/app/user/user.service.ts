@@ -2,11 +2,15 @@ import { Injectable } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { PrismaService } from '../../prisma/prisma.service';
+import { InjectRepository } from '@nestjs/typeorm';
+import { User } from './entities/user.entity';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class UserService {
-  constructor(private prisma: PrismaService) {}
+  constructor(
+    @InjectRepository(User) private userRepository: Repository<User>,
+  ) {}
 
   async create(createUserDto: CreateUserDto) {
     const { username, password, email } = createUserDto;
@@ -14,48 +18,49 @@ export class UserService {
     const salt = await bcrypt.genSalt();
     const hashPassword = await bcrypt.hash(password, salt);
 
-    return this.prisma.user.create({
-      data: { username, password: hashPassword, email },
-    });
+    const user = new User();
+    user.username = username;
+    user.password = hashPassword;
+    user.email = email;
+
+    this.userRepository.create(user);
   }
 
-  findAll() {
-    return this.prisma.user.findMany();
+  async findAll() {
+    return this.userRepository.find();
   }
 
-  findOne(id: number) {
-    return this.prisma.user.findUnique({
-      where: { id },
-    });
+  async findOne(id: number) {
+    return this.userRepository.findOne(id);
   }
 
-  findByUsername(username: string) {
-    return this.prisma.user.findFirst({
+  async findByUsername(username: string) {
+    return this.userRepository.findOne({
       where: { username },
     });
   }
 
-  update(id: number, updateUserDto: UpdateUserDto) {
+  async update(id: number, updateUserDto: UpdateUserDto) {
     const { username, password, email } = updateUserDto;
 
-    return this.prisma.user.update({
-      data: { username, password, email },
-      where: { id },
+    const salt = await bcrypt.genSalt();
+    const hashPassword = await bcrypt.hash(password, salt);
+
+    return this.userRepository.update(
+      { id },
+      { username, password: hashPassword, email },
+    );
+  }
+
+  async remove(id: number) {
+    return this.userRepository.delete({
+      id,
     });
   }
 
-  remove(id: number) {
-    return this.prisma.user.delete({
-      where: { id },
-    });
-  }
-
-  checkAdmin(id: number) {
-    return this.prisma.user.findFirst({
-      where: {
-        id,
-        is_admin: 1,
-      },
+  async checkAdmin(id: number) {
+    return this.userRepository.findOne({
+      where: { id, is_admin: 1 },
     });
   }
 }
