@@ -31,6 +31,7 @@ async function bootstrap() {
   });
 
   app.useStaticAssets(join(__dirname, '..', 'upload_dist'));
+
   app.useGlobalFilters(new HttpExceptionFilter());
   app.useGlobalInterceptors(
     new LoggingInterceptor(),
