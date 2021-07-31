@@ -18,7 +18,7 @@ export class UploadController {
   uploadFile(@UploadedFile() file: Express.Multer.File) {
     const baseURL = 'http://localhost:4200/';
     return {
-      file: baseURL + file.path + file.filename,
+      file: baseURL + file.originalname,
     };
   }
 
@@ -26,7 +26,7 @@ export class UploadController {
   @UseInterceptors(FileInterceptor('files'))
   uploadFiles(@UploadedFiles() files: Array<Express.Multer.File>) {
     return {
-      files: files.map((f) => f.buffer.toString()),
+      files: files.map((f) => baseURL + f.originalname),
     };
   }
 }
