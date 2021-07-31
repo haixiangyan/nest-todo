@@ -30,6 +30,7 @@
     "@nestjs/platform-express": "^7.6.15",
     "@nestjs/swagger": "^4.8.2",
     "@prisma/client": "^2.26.0",
+    "bcrypt": "^5.0.1",
     "class-validator": "^0.13.1",
     "passport": "^0.4.1",
     "passport-jwt": "^4.0.0",
