@@ -4,6 +4,7 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { join } from 'path';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { HttpExceptionFilter } from './filters/http-exception.filter';
+import { LoggingInterceptor } from './interceptors/logging.interceptor';
 
 const setupSwagger = (app) => {
   const config = new DocumentBuilder()
@@ -30,6 +31,7 @@ async function bootstrap() {
 
   app.useStaticAssets(join(__dirname, '..', 'upload_dist'));
   app.useGlobalFilters(new HttpExceptionFilter());
+  app.useGlobalInterceptors(new LoggingInterceptor());
 
   setupSwagger(app);
 
