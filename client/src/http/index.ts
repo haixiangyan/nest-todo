@@ -21,7 +21,10 @@ http.interceptors.request.use((config) => {
 });
 
 http.interceptors.response.use((response) => {
-  return response;
+  if (response.data.retcode !== 0) {
+    alert(response.data.message);
+  }
+  return response.data;
 }, (error) => {
   if (error.message.includes('401')) {
     window.location.replace('/login');
