@@ -4,7 +4,13 @@
 
 ## 本地运行
 
-先在 `mysql` 或者 `mariadb` 里添加 `nest_todo` 数据库。
+使用 Docker 开启一个 `mysql` 或者 `mariadb` 容器。
+
+```shell
+docker run -p 127.0.0.1:3306:3306 --name nest-todo -e MARIADB_ROOT_PASSWORD=123456 -d mariadb:latest
+```
+
+在 `mysql` 或者 `mariadb` 里添加 `nest_todo` 数据库。
 
 ```sql
 CREATE DATABASE nest_todo
