@@ -1,5 +1,4 @@
 import { Module } from '@nestjs/common';
-import ormconfig from '../../ormconfig';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TodoModule } from './todo/todo.module';
@@ -17,7 +16,7 @@ const businessModules = [
   StaticModule,
 ];
 
-const libModules = [TypeOrmModule.forRoot(ormconfig)];
+const libModules = [TypeOrmModule.forRoot()];
 
 @Module({
   imports: [...libModules, ...businessModules],

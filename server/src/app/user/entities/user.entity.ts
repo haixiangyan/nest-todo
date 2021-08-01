@@ -1,5 +1,12 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import * as bcrypt from 'bcrypt';
+import {
+  BeforeInsert,
+  Column,
+  Entity,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import { Todo } from '../../todo/entities/todo.entity';
 
 @Entity()
@@ -26,4 +33,10 @@ export class User {
 
   @OneToMany(() => Todo, (todo) => todo.author)
   todos: Todo[];
+
+  @BeforeInsert()
+  private async hashPassword() {
+    const salt = await bcrypt.genSalt();
+    this.password = await bcrypt.hash(this.password, salt);
+  }
 }

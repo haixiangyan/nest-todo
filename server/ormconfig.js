@@ -6,11 +6,10 @@ const ormconfig = {
   username: 'root',
   password: '123456',
   entities: ['dist/**/*.entity{.ts,.js}'],
-  migrations: ['dist/db/migrations/*.js'],
+  migrations: ['dist/src/db/migrations/*.js'],
   cli: {
     migrationsDir: 'src/db/migrations',
   },
-  synchronize: true, // 生产环境不能用这个属性
 };
 
 module.exports = ormconfig;

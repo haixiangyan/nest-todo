@@ -27,7 +27,7 @@ export class UserController {
   @ApiBody({ type: CreateUserDto })
   @ApiResponse({ type: User })
   @Post()
-  create(@Body() createUserDto: CreateUserDto) {
+  async create(@Body() createUserDto: CreateUserDto) {
     return this.userService.create(createUserDto);
   }
 
@@ -35,20 +35,20 @@ export class UserController {
   @Roles(Role.Admin)
   @UseGuards(RolesGuard)
   @Get()
-  findAll() {
+  async findAll() {
     return this.userService.findAll();
   }
 
   @ApiResponse({ type: User })
   @Get(':id')
-  findOne(@Param('id', ParseIntPipe) id: string) {
+  async findOne(@Param('id', ParseIntPipe) id: string) {
     return this.userService.findOne(+id);
   }
 
   @ApiBody({ type: UpdateUserDto })
   @ApiResponse({ type: User })
   @Patch(':id')
-  update(
+  async update(
     @Param('id', ParseIntPipe) id: string,
     @Body() updateUserDto: UpdateUserDto,
   ) {
@@ -56,7 +56,7 @@ export class UserController {
   }
 
   @Delete(':id')
-  remove(@Param('id', ParseIntPipe) id: string) {
+  async remove(@Param('id', ParseIntPipe) id: string) {
     return this.userService.remove(+id);
   }
 }
