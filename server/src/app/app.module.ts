@@ -21,7 +21,7 @@ const businessModules = [
 const libModules = [
   ConfigModule.forRoot({
     load: [loadConfig],
-    envFilePath: ['.dev.env', '.prod.env'],
+    envFilePath: ['.env'],
   }),
   TypeOrmModule.forRootAsync({
     imports: [ConfigModule],
