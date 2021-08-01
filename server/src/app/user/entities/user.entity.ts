@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import * as bcrypt from 'bcrypt';
+import { Exclude } from 'class-transformer';
 import {
   BeforeInsert,
   Column,
@@ -20,6 +21,7 @@ export class User {
   username: string;
 
   @ApiProperty({ description: '密码' })
+  @Exclude()
   @Column({ length: 500 })
   password: string;
 

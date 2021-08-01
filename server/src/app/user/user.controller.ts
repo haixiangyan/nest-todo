@@ -7,7 +7,7 @@ import {
   Param,
   Delete,
   ParseIntPipe,
-  UseGuards,
+  UseGuards, UseInterceptors, ClassSerializerInterceptor,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -26,6 +26,7 @@ export class UserController {
 
   @ApiBody({ type: CreateUserDto })
   @ApiResponse({ type: User })
+  @UseInterceptors(ClassSerializerInterceptor)
   @Post()
   async create(@Body() createUserDto: CreateUserDto) {
     return this.userService.create(createUserDto);
@@ -34,12 +35,14 @@ export class UserController {
   @ApiResponse({ type: [User] })
   @Roles(Role.Admin)
   @UseGuards(RolesGuard)
+  @UseInterceptors(ClassSerializerInterceptor)
   @Get()
   async findAll() {
     return this.userService.findAll();
   }
 
   @ApiResponse({ type: User })
+  @UseInterceptors(ClassSerializerInterceptor)
   @Get(':id')
   async findOne(@Param('id', ParseIntPipe) id: string) {
     return this.userService.findOne(+id);
