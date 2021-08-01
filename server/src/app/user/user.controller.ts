@@ -13,8 +13,8 @@ import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { ApiBearerAuth, ApiBody, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { Roles } from '../../roles/roles.decorator';
-import { Role } from '../../roles/roles.interface';
+import { Roles } from '../roles/roles.decorator';
+import { Role } from '../roles/roles.interface';
 import { RolesGuard } from '../auth/guards/roles.guard';
 import { User } from './entities/user.entity';
 
