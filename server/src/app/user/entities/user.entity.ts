@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Todo } from '../../todo/entities/todo.entity';
 
 @Entity()
 export class User {
@@ -22,4 +23,7 @@ export class User {
   @ApiProperty({ description: '是否为管理员' })
   @Column('int')
   is_admin?: number;
+
+  @OneToMany(() => Todo, (todo) => todo.author)
+  todos: Todo[];
 }

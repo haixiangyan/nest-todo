@@ -6,7 +6,7 @@ const ormconfig = {
   username: 'root',
   password: '123456',
   entities: ['dist/**/*.entity{.ts,.js}'],
-  migrations: ['dist/src/db/migrations/*.js'],
+  migrations: ['dist/db/migrations/*.js'],
   cli: {
     migrationsDir: 'src/db/migrations',
   },

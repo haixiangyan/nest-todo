@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { User } from '../../user/entities/user.entity';
 
 export enum TodoStatus {
   TODO = 0, // 待完成
@@ -27,4 +28,7 @@ export class Todo {
   @ApiProperty({ required: false })
   @Column('text')
   media?: string;
+
+  @ManyToOne(() => User, (user) => user.todos)
+  author: User;
 }
