@@ -1,6 +1,6 @@
 import 'reflect-metadata';
-import * as lodash from 'lodash';
 import { createConnection, Repository } from 'typeorm';
+import * as lodash from 'lodash';
 import { getInitUsers, getRandomTodo, getRandomUser } from './random';
 import { User } from '../../src/app/user/entities/user.entity';
 import ormConfig from './config';
@@ -34,11 +34,12 @@ const seed = async () => {
   const initUsers = getInitUsers();
 
   console.log('生成初始化数据...');
-  const users = lodash.range(10).map(() => {
-    const todos = lodash.range(3).map(() => {
-      return getRandomTodo();
-    });
+  initUsers.forEach((user) => {
+    user.todos = lodash.range(3).map(getRandomTodo);
+  });
 
+  const users = lodash.range(10).map(() => {
+    const todos = lodash.range(3).map(getRandomTodo);
     return getRandomUser(todos);
   });
 

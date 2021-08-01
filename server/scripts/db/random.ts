@@ -1,6 +1,6 @@
 import { User } from '../../src/app/user/entities/user.entity';
 import { Todo, TodoStatus } from '../../src/app/todo/entities/todo.entity';
-import * as faker from 'faker/locale/zh_CN';
+import { Random, mock } from 'mockjs';
 
 export const getInitUsers = () => {
   const admin = new User();
@@ -21,10 +21,10 @@ export const getInitUsers = () => {
 export const getRandomUser = (todos?: Todo[]): User => {
   const user = new User();
 
-  user.username = faker.name.findName();
-  user.email = faker.internet.email();
+  user.username = Random.cname();
+  user.email = Random.email();
   user.password = '123456';
-  user.is_admin = faker.datatype.number({ min: 0, max: 1 });
+  user.is_admin = Random.natural(0, 1);
   user.todos = todos || [];
 
   return user;
@@ -33,10 +33,12 @@ export const getRandomUser = (todos?: Todo[]): User => {
 export const getRandomTodo = (): Todo => {
   const todo = new Todo();
 
-  todo.title = faker.lorem.words();
-  todo.description = faker.lorem.sentence();
-  todo.status = faker.random.arrayElement([TodoStatus.TODO, TodoStatus.DONE]);
-  todo.media = faker.datatype.boolean() ? faker.image.imageUrl() : '';
+  todo.title = Random.ctitle();
+  todo.description = Random.csentence();
+  todo.status = mock({
+    'array|1': [TodoStatus.TODO, TodoStatus.DONE],
+  }).array;
+  todo.media = Random.boolean() ? Random.image('200x200', '#02adea', '测试') : '';
 
   return todo;
 };
