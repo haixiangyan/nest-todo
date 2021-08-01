@@ -22,7 +22,7 @@ export class Todo {
   description?: string; // 具体内容
 
   @ApiProperty()
-  @Column('int')
+  @Column('int', { default: TodoStatus.TODO })
   status: TodoStatus; // 状态
 
   @ApiProperty({ required: false })

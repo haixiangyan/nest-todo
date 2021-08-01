@@ -28,10 +28,10 @@ export class User {
   email: string;
 
   @ApiProperty({ description: '是否为管理员' })
-  @Column('int')
+  @Column('int', { default: 1 })
   is_admin?: number;
 
-  @OneToMany(() => Todo, (todo) => todo.author)
+  @OneToMany(() => Todo, (todo) => todo.author, { cascade: true })
   todos: Todo[];
 
   @BeforeInsert()
