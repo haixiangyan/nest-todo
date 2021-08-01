@@ -1,6 +1,6 @@
 import { User } from '../../src/app/user/entities/user.entity';
 import { Todo, TodoStatus } from '../../src/app/todo/entities/todo.entity';
-import * as faker from 'faker';
+import * as faker from 'faker/locale/zh_CN';
 
 export const getInitUsers = () => {
   const admin = new User();

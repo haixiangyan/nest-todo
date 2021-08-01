@@ -3,7 +3,7 @@ import * as lodash from 'lodash';
 import { createConnection, Repository } from 'typeorm';
 import { getInitUsers, getRandomTodo, getRandomUser } from './random';
 import { User } from '../../src/app/user/entities/user.entity';
-import { Todo } from '../../src/app/todo/entities/todo.entity';
+import ormConfig from './config';
 
 const checkExist = async (userRepository: Repository<User>) => {
   console.log('检查是否已初始化...');
@@ -21,15 +21,7 @@ const checkExist = async (userRepository: Repository<User>) => {
 
 const seed = async () => {
   console.log('开始插入数据...');
-  const connection = await createConnection({
-    type: 'mariadb',
-    database: 'nest_todo',
-    host: 'localhost',
-    port: 3306,
-    username: 'root',
-    password: '123456',
-    entities: [User, Todo],
-  });
+  const connection = await createConnection(ormConfig);
 
   const userRepository = connection.getRepository<User>(User);
 

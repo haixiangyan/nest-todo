@@ -22,7 +22,8 @@
     "typeorm": "node --require ts-node/register ./node_modules/typeorm/cli.js",
     "migration:generate": "npm run build && npm run typeorm migration:generate -- -n",
     "migration:run": "npm run build && npm run typeorm migration:run",
-    "db:seed": "ts-node scripts/db/seed.ts"
+    "db:seed": "ts-node scripts/db/seed.ts",
+    "db:reset": "ts-node scripts/db/reset.ts"
   },
   "dependencies": {
     "@nestjs/common": "^8.0.2",
