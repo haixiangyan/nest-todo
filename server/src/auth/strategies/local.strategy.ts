@@ -4,11 +4,16 @@ import { AuthService } from '../auth.service';
 import { User } from '../../user/entities/user.entity';
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { ContextIdFactory, ModuleRef } from '@nestjs/core';
+import { ReportLogger } from '../../log/ReportLogger';
 
 @Injectable()
 export class LocalStrategy extends PassportStrategy(Strategy) {
-  constructor(private moduleRef: ModuleRef) {
+  constructor(
+    private moduleRef: ModuleRef,
+    private reportLogger: ReportLogger,
+  ) {
     super({ passReqToCallback: true });
+    this.reportLogger.setContext('LocalStrategy');
   }
 
   async validate(
@@ -24,6 +29,7 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
     const user = await authService.validateUser(username, password);
 
     if (!user) {
+      this.reportLogger.error('无法登录，SB');
       throw new UnauthorizedException();
     }
 

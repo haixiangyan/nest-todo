@@ -9,9 +9,11 @@ import { jwtConstants } from './constants';
 import { JwtStrategy } from './strategies/jwt.strategy';
 import { APP_GUARD } from '@nestjs/core';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
+import { LogModule } from '../log/log.module';
 
 @Module({
   imports: [
+    LogModule,
     UserModule,
     PassportModule,
     JwtModule.register({
