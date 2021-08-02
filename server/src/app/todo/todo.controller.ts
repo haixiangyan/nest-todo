@@ -6,6 +6,7 @@ import {
   Patch,
   Param,
   Delete,
+  Request,
   ParseIntPipe,
 } from '@nestjs/common';
 import { TodoService } from './todo.service';
@@ -26,8 +27,14 @@ export class TodoController {
   }
 
   @Get()
-  findAll(): Promise<Todo[]> {
-    return this.todoService.findAll();
+  findAll(@Request() request): Promise<Todo[]> {
+    const { id, is_admin } = request.user;
+
+    if (is_admin === 1) {
+      return this.todoService.findAll();
+    } else {
+      return this.todoService.findAllByUserId(id);
+    }
   }
 
   @Get(':id')

@@ -27,7 +27,9 @@ const libModules = [
     imports: [ConfigModule],
     inject: [ConfigService],
     useFactory: (configService: ConfigService) => {
-      const { host, port, username, password, database } = configService.get('db');
+      const { host, port, username, password, database } =
+        configService.get('db');
+
       return {
         type: 'mariadb',
         // .env 获取
