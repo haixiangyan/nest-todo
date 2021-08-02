@@ -23,7 +23,8 @@
     "migration:generate": "npm run build && npm run typeorm migration:generate -- -n",
     "migration:run": "npm run build && npm run typeorm migration:run",
     "db:seed": "ts-node scripts/db/seed.ts",
-    "db:reset": "ts-node scripts/db/reset.ts"
+    "db:reset": "ts-node scripts/db/reset.ts",
+    "compodoc": "npx @compodoc/compodoc -p tsconfig.json -s"
   },
   "dependencies": {
     "@nestjs/common": "^8.0.2",
@@ -51,6 +52,7 @@
     "typeorm": "^0.2.36"
   },
   "devDependencies": {
+    "@compodoc/compodoc": "^1.1.14",
     "@nestjs/cli": "^7.6.0",
     "@nestjs/schematics": "^7.3.0",
     "@nestjs/testing": "^7.6.18",
