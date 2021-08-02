@@ -4,8 +4,9 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { join } from 'path';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { HttpExceptionFilter } from './error/http-exception.filter';
-import { LoggingInterceptor } from './log/logging.interceptor';
+import { LogInterceptor } from './log/log.interceptor';
 import { TransformInterceptor } from './transform/transform.interceptor';
+import { ReportLogger } from './log/ReportLogger';
 
 const setupSwagger = (app) => {
   const config = new DocumentBuilder()
@@ -28,16 +29,14 @@ async function bootstrap() {
       origin: 'http://localhost:3000',
       credentials: true,
     },
+    logger: new ReportLogger(),
   });
 
   app.useStaticAssets(join(__dirname, '..', 'upload_dist'));
 
   app.setGlobalPrefix('api');
   app.useGlobalFilters(new HttpExceptionFilter());
-  app.useGlobalInterceptors(
-    new LoggingInterceptor(),
-    new TransformInterceptor(),
-  );
+  app.useGlobalInterceptors(new LogInterceptor(), new TransformInterceptor());
 
   setupSwagger(app);
 

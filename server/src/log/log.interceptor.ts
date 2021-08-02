@@ -1,7 +1,7 @@
 import { CallHandler, ExecutionContext, NestInterceptor } from '@nestjs/common';
 import { tap } from 'rxjs/operators';
 
-export class LoggingInterceptor implements NestInterceptor {
+export class LogInterceptor implements NestInterceptor {
   intercept(context: ExecutionContext, next: CallHandler) {
     const http = context.switchToHttp();
     const request = http.getRequest();
