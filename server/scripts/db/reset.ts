@@ -1,7 +1,7 @@
 import { createConnection } from 'typeorm';
 import ormConfig from './config';
-import { User } from '../../src/app/user/entities/user.entity';
-import { Todo } from '../../src/app/todo/entities/todo.entity';
+import { User } from '../../src/user/entities/user.entity';
+import { Todo } from '../../src/todo/entities/todo.entity';
 
 const reset = async () => {
   const connection = await createConnection(ormConfig);

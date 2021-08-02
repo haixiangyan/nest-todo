@@ -1,5 +1,5 @@
-import { User } from '../../src/app/user/entities/user.entity';
-import { Todo } from '../../src/app/todo/entities/todo.entity';
+import { User } from '../../src/user/entities/user.entity';
+import { Todo } from '../../src/todo/entities/todo.entity';
 import { ConnectionOptions } from 'typeorm/connection/ConnectionOptions';
 
 const ormConfig: ConnectionOptions = {

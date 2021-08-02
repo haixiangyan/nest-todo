@@ -2,7 +2,7 @@ import 'reflect-metadata';
 import { createConnection, Repository } from 'typeorm';
 import * as lodash from 'lodash';
 import { getInitUsers, getRandomTodo, getRandomUser } from './random';
-import { User } from '../../src/app/user/entities/user.entity';
+import { User } from '../../src/user/entities/user.entity';
 import ormConfig from './config';
 
 const checkExist = async (userRepository: Repository<User>) => {

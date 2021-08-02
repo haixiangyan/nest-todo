@@ -1,5 +1,5 @@
-import { User } from '../../src/app/user/entities/user.entity';
-import { Todo, TodoStatus } from '../../src/app/todo/entities/todo.entity';
+import { User } from '../../src/user/entities/user.entity';
+import { Todo, TodoStatus } from '../../src/todo/entities/todo.entity';
 import { Random, mock } from 'mockjs';
 
 export const getInitUsers = () => {

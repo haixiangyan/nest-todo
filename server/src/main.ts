@@ -1,11 +1,11 @@
 import { NestFactory } from '@nestjs/core';
-import { AppModule } from './app/app.module';
+import { AppModule } from './app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { join } from 'path';
 import { NestExpressApplication } from '@nestjs/platform-express';
-import { HttpExceptionFilter } from './filters/http-exception.filter';
-import { LoggingInterceptor } from './interceptors/logging.interceptor';
-import { TransformInterceptor } from './interceptors/transform.interceptor';
+import { HttpExceptionFilter } from './error/http-exception.filter';
+import { LoggingInterceptor } from './log/logging.interceptor';
+import { TransformInterceptor } from './transform/transform.interceptor';
 
 const setupSwagger = (app) => {
   const config = new DocumentBuilder()
