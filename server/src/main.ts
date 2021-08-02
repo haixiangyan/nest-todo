@@ -24,20 +24,25 @@ const setupSwagger = (app) => {
 };
 
 async function bootstrap() {
+  const reportLogger = new ReportLogger();
+
   const app = await NestFactory.create<NestExpressApplication>(AppModule, {
     cors: {
       origin: 'http://localhost:3000',
       credentials: true,
     },
     bufferLogs: true,
-    logger: new ReportLogger(),
+    logger: reportLogger,
   });
 
   app.useStaticAssets(join(__dirname, '..', 'upload_dist'));
 
   app.setGlobalPrefix('api');
   app.useGlobalFilters(new HttpExceptionFilter());
-  app.useGlobalInterceptors(new LogInterceptor(), new TransformInterceptor());
+  app.useGlobalInterceptors(
+    new LogInterceptor(reportLogger),
+    new TransformInterceptor(),
+  );
 
   setupSwagger(app);
 
