@@ -12,6 +12,18 @@
   background: white;
   z-index: 2;
 
+  .header {
+    display: flex;
+    align-items: center;
+    > h2 {
+      flex-grow: 1;
+      margin: 0;
+    }
+    > span {
+      cursor: pointer;
+    }
+  }
+
   .messageList {
     flex: 1;
     margin: 8px 0;
@@ -33,7 +45,7 @@
         flex: 1;
         margin: 0;
         padding: 4px;
-        span {
+        > span {
           border-radius: 4px;
           padding: 4px;
         }
@@ -43,7 +55,7 @@
     .clientMessage {
       color: green;
       .content {
-        span {
+        > span {
           border: 1px solid green;
         }
       }
@@ -53,7 +65,7 @@
       color: blue;
       .content {
         text-align: right;
-        span {
+        > span {
           border: 1px solid blue;
         }
       }
@@ -64,7 +76,7 @@
     display: flex;
     align-items: center;
 
-    input {
+    > input {
       flex: 1;
       margin-right: 12px;
     }

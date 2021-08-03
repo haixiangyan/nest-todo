@@ -11,11 +11,13 @@ import AdminRoute from './Components/AdminRoute';
 import http from './http';
 import { CountRsp } from './types/Common';
 import ChatRoom from './Components/ChatRoom';
+import styles from './styles.module.scss';
 
 const App: FC = () => {
   const auth = useAuth();
 
   const [count, setCount] = useState(0);
+  const [chatVisible, setChatVisible] = useState<boolean>(false);
 
   const updateAndGetCount = async () => {
     http.post('/count').then();
@@ -53,7 +55,15 @@ const App: FC = () => {
             </AdminRoute>
           </Switch>
 
-          <ChatRoom />
+          {!chatVisible && (
+            <button
+              className={styles.startChat}
+              onClick={() => setChatVisible(true)}
+            >
+              我要聊天
+            </button>
+          )}
+          {chatVisible && <ChatRoom onCancel={() => setChatVisible(false)} />}
         </div>
       </Router>
     </AuthContext.Provider>

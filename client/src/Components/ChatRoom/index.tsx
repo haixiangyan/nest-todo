@@ -15,7 +15,13 @@ const messageMap: Record<MessageRole, FC<MessageProps>> = {
   [MessageRole.Server]: ServerMessageItem,
 }
 
-const ChatRoom: FC = () => {
+interface Props {
+  onCancel: () => void;
+}
+
+const ChatRoom: FC<Props> = (props) => {
+  const { onCancel } = props;
+
   const socketRef = useRef<Socket>();
   const chatRef = useRef<HTMLUListElement | null>(null);
 
@@ -80,7 +86,10 @@ const ChatRoom: FC = () => {
 
   return (
     <div className={styles.chatRoom}>
-      <h2>聊天室</h2>
+      <header className={styles.header}>
+        <h2>聊天室</h2>
+        <span onClick={onCancel}>X</span>
+      </header>
       <ul ref={chatRef} className={styles.messageList}>
         {messages.map(message => {
           const Message = messageMap[message.role];
