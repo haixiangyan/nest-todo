@@ -12,12 +12,14 @@ import http from './http';
 import { CountRsp } from './types/Common';
 import ChatRoom from './Components/ChatRoom';
 import styles from './styles.module.scss';
+import { Quote } from './types/Quote';
 
 const App: FC = () => {
   const auth = useAuth();
 
   const [count, setCount] = useState(0);
   const [chatVisible, setChatVisible] = useState<boolean>(false);
+  const [quote, setQuote] = useState<Quote | null>(null);
 
   const updateAndGetCount = async () => {
     http.post('/count').then();
@@ -26,8 +28,13 @@ const App: FC = () => {
     setCount(data.count);
   }
 
+  const fetchQuote = async () => {
+    const { data } = await http.get<Quote>('/quote/random')
+    setQuote(data)
+  }
+
   useEffect(() => {
-    updateAndGetCount().then();
+    Promise.all([updateAndGetCount(), fetchQuote()]).then();
   }, []);
 
   return (
@@ -39,7 +46,10 @@ const App: FC = () => {
           </header>
         )}
         <div>
-          <header>访问量：{count}</header>
+          <header>
+            <div>访问量：{count}</div>
+            {quote && <p>今日金句: <i>{quote.content} -- {quote.author}</i> </p>}
+          </header>
 
           <AuthButton />
 

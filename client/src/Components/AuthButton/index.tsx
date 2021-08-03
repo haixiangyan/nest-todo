@@ -11,7 +11,7 @@ const AuthButton: FC<Props> = () => {
   const { token, logout } = useContext(AuthContext);
 
   if (!token) {
-    return <p>你还没有登录</p>;
+    return <p style={{ color: 'red' }}>你还没有登录</p>;
   }
 
   return (

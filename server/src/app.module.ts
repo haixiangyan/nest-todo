@@ -1,4 +1,5 @@
 import * as redisStore from 'cache-manager-redis-store';
+import loadConfig from './config/configurations';
 import { CacheModule, Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -10,8 +11,8 @@ import { StaticModule } from './static/static.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { ChatModule } from './chat/chat.module';
-import loadConfig from './config/configurations';
 import { ScheduleModule } from '@nestjs/schedule';
+import { QuoteModule } from './quote/quote.module';
 
 const businessModules = [
   AuthModule,
@@ -20,6 +21,7 @@ const businessModules = [
   UploadModule,
   StaticModule,
   ChatModule,
+  QuoteModule,
 ];
 
 const libModules = [
