@@ -7,6 +7,7 @@ import { HttpExceptionFilter } from './error/http-exception.filter';
 import { LogInterceptor } from './log/log.interceptor';
 import { TransformInterceptor } from './transform/transform.interceptor';
 import { ReportLogger } from './log/ReportLogger';
+import { ValidationPipe } from '@nestjs/common';
 
 const setupSwagger = (app) => {
   const config = new DocumentBuilder()
@@ -39,6 +40,7 @@ async function bootstrap() {
 
   app.setGlobalPrefix('api');
   app.useGlobalFilters(new HttpExceptionFilter());
+  app.useGlobalPipes(new ValidationPipe());
   app.useGlobalInterceptors(
     new LogInterceptor(reportLogger),
     new TransformInterceptor(),
