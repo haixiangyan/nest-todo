@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { TodoItem } from "../../../../types/Todo";
+import { TodoItem } from "../../../types/Todo";
 
 interface Props {
   todoList: TodoItem[];

@@ -1,5 +1,5 @@
 import { FC, useEffect, useState } from 'react';
-import { User } from '../../../types/User';
+import { User } from '../../types/User';
 import http from '../../http';
 
 const Admin: FC = () => {

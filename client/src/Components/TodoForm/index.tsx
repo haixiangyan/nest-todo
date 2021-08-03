@@ -1,6 +1,6 @@
 import * as React from "react"
 import { ChangeEvent, FC, useEffect, useState } from "react";
-import {TodoItem} from "../../../types/Todo"
+import {TodoItem} from "../../types/Todo"
 import http from "../../http"
 
 interface Props {

@@ -9,7 +9,8 @@ import PrivateRoute from "./Components/PrivateRoute"
 import Admin from './pages/Admin';
 import AdminRoute from './Components/AdminRoute';
 import http from './http';
-import { CountRsp } from '../types/Common';
+import { CountRsp } from './types/Common';
+import ChatRoom from './Components/ChatRoom';
 
 const App: FC = () => {
   const auth = useAuth();
@@ -51,6 +52,8 @@ const App: FC = () => {
               <Admin />
             </AdminRoute>
           </Switch>
+
+          <ChatRoom />
         </div>
       </Router>
     </AuthContext.Provider>

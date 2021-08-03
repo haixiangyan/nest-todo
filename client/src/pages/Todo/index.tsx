@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useState } from "react";
-import { TodoItem } from "../../../types/Todo";
+import { TodoItem } from "../../types/Todo";
 import http from "../../http";
 import TodoForm from "../../Components/TodoForm";
 import List from "./List";

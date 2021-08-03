@@ -9,6 +9,7 @@ import { UploadModule } from './upload/upload.module';
 import { StaticModule } from './static/static.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { ChatModule } from './chat/chat.module';
 import loadConfig from './config/configurations';
 
 const businessModules = [
@@ -17,6 +18,7 @@ const businessModules = [
   UserModule,
   UploadModule,
   StaticModule,
+  ChatModule,
 ];
 
 const libModules = [
