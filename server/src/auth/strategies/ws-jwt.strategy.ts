@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
-import { ExtractJwt, Strategy } from 'passport-jwt';
+import { Strategy } from 'passport-jwt';
 import { jwtConstants } from '../constants';
 import { UserService } from '../../user/user.service';
 import { WsException } from '@nestjs/websockets';
@@ -10,11 +10,14 @@ export class WsJwtStrategy extends PassportStrategy(Strategy, 'ws-jwt') {
   constructor(private userService: UserService) {
     super({
       jwtFromRequest: (req) => {
-        if (!req.headers) {
-          return () => null;
+        const { authorization } = req.handshake.headers;
+        if (!authorization) {
+          return null;
         }
 
-        return ExtractJwt.fromAuthHeaderAsBearerToken();
+        const [, token] = authorization.split(' ');
+
+        return token;
       },
       ignoreExpiration: false,
       secretOrKey: jwtConstants.secret,

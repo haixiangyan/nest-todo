@@ -55,7 +55,7 @@ const App: FC = () => {
             </AdminRoute>
           </Switch>
 
-          {!chatVisible && (
+          {!chatVisible && auth.token && (
             <button
               className={styles.startChat}
               onClick={() => setChatVisible(true)}
@@ -63,7 +63,9 @@ const App: FC = () => {
               我要聊天
             </button>
           )}
-          {chatVisible && <ChatRoom onCancel={() => setChatVisible(false)} />}
+          {chatVisible && auth.token && (
+            <ChatRoom onCancel={() => setChatVisible(false)} />
+          )}
         </div>
       </Router>
     </AuthContext.Provider>

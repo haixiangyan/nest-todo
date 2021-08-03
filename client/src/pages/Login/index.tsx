@@ -15,7 +15,6 @@ const Login: FC = () => {
 
   const login = async () => {
     const isLogin = await auth.login({...authForm});
-    console.log(isLogin);
     if (isLogin) {
       setMsg('登录成功');
       history.push('/')

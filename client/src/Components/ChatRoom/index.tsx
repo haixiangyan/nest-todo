@@ -1,10 +1,11 @@
-import { FC, useEffect, useRef, useState } from 'react';
+import { FC, useContext, useEffect, useRef, useState } from 'react';
 import io, { Socket } from 'socket.io-client';
 import { wsURL } from '../../constants';
 import { Message, MessageData, MessageRole } from '../../types/Chat';
 import styles from './styles.module.scss';
 import ClientMessageItem from './ClientMessageItem';
 import ServerMessageItem from './ServerMessageItem';
+import AuthContext from '../../contexts/AuthContext';
 
 export interface MessageProps {
   content: string;
@@ -22,22 +23,29 @@ interface Props {
 const ChatRoom: FC<Props> = (props) => {
   const { onCancel } = props;
 
+  const { token } = useContext(AuthContext);
+
   const socketRef = useRef<Socket>();
   const chatRef = useRef<HTMLUListElement | null>(null);
 
   const [newMessage, setNewMessage] = useState<string>('');
   const [messages, setMessages] = useState<Message[]>([]);
 
-  const onServerToClient = (data: MessageData) => {
-    console.log('服务器消息', data);
+  const onServerToClient = (serverData: MessageData) => {
+    console.log('服务器消息', serverData);
     setMessages([
       ...messages,
-      { role: MessageRole.Server, createdAt: Date.now(), data: { content: data.content }}
+      { role: MessageRole.Server, createdAt: Date.now(), data: { content: serverData.content }}
     ])
   }
 
   const initWs = () => {
-    socketRef.current = io(wsURL, { path: '/chat/socket.io' });
+    socketRef.current = io(wsURL, {
+      path: '/chat/socket.io',
+      extraHeaders: {
+        authorization: `Bearer ${token}` || ''
+      }
+    });
     socketRef.current.on('connect', () => {
       console.log('WS 已连接');
       sendMsg('你好');
