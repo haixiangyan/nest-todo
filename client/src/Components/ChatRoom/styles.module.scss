@@ -1,0 +1,72 @@
+.chatRoom {
+  display: flex;
+  flex-direction: column;
+  padding: 12px;
+  position: fixed;
+  width: 400px;
+  height: 400px;
+  border: 1px solid black;
+  border-radius: 4px;
+  bottom: 12px;
+  right: 12px;
+  background: white;
+  z-index: 2;
+
+  .messageList {
+    flex: 1;
+    margin: 8px 0;
+    padding: 8px 0;
+    overflow: auto;
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+
+    .clientMessage, .serverMessage {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 12px;
+
+      .sender {
+        padding: 4px;
+      }
+
+      .content {
+        flex: 1;
+        margin: 0;
+        padding: 4px;
+        span {
+          border-radius: 4px;
+          padding: 4px;
+        }
+      }
+    }
+
+    .clientMessage {
+      color: green;
+      .content {
+        span {
+          border: 1px solid green;
+        }
+      }
+    }
+
+    .serverMessage {
+      color: blue;
+      .content {
+        text-align: right;
+        span {
+          border: 1px solid blue;
+        }
+      }
+    }
+  }
+
+  .newMessage {
+    display: flex;
+    align-items: center;
+
+    input {
+      flex: 1;
+      margin-right: 12px;
+    }
+  }
+}
