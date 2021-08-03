@@ -51,7 +51,7 @@ const ChatRoom: FC = () => {
   const sendMsg = (content: string) => {
     const newMessages = [
       ...messages,
-      { role: MessageRole.Client, data: { content } }
+      { role: MessageRole.Client, createdAt: Date.now(), data: { content } }
     ]
 
     setMessages(newMessages);
@@ -61,7 +61,7 @@ const ChatRoom: FC = () => {
         console.log('服务器消息:', serverData);
         setMessages([
           ...newMessages,
-          { role: MessageRole.Server, data: { content: serverData.content } }
+          { role: MessageRole.Server, createdAt: Date.now(), data: { content: serverData.content } }
         ])
       })
     }
@@ -84,7 +84,7 @@ const ChatRoom: FC = () => {
       <ul ref={chatRef} className={styles.messageList}>
         {messages.map(message => {
           const Message = messageMap[message.role];
-          return <Message content={message.data.content} />
+          return <Message key={message.createdAt} content={message.data.content} />
         })}
       </ul>
       <div className={styles.newMessage}>

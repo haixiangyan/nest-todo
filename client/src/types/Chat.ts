@@ -10,4 +10,5 @@ export interface MessageData {
 export interface Message {
   role: MessageRole;
   data: MessageData;
+  createdAt: number;
 }
