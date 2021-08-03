@@ -15,7 +15,7 @@ import { UpdateTodoDto } from './dto/update-todo.dto';
 import { Todo } from './entities/todo.entity';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
-@ApiTags('todo')
+@ApiTags('待办事项')
 @ApiBearerAuth()
 @Controller('todo')
 export class TodoController {

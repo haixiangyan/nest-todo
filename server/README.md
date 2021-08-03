@@ -22,6 +22,18 @@ CREATE DATABASE nest_todo
 npm run migration:generate run
 ```
 
+初始化数据库数据。
+
+```shell
+npm run db:seed
+```
+
+开始 Redis。
+
+```shell
+docker run -p 127.0.0.1:6379:6379 --name some-redis -d redis
+```
+
 最后，本地跑 Nest 项目。
 
 ```shell

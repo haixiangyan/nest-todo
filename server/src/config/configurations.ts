@@ -7,6 +7,10 @@ const loadConfig = () => {
       username: process.env.TYPEORM_USERNAME,
       password: process.env.TYPEORM_PASSWORD,
     },
+    redis: {
+      host: process.env.REDIS_HOST,
+      port: parseInt(process.env.REDIS_PORT) || 6379,
+    },
   };
 };
 

@@ -1,4 +1,5 @@
-import { Module } from '@nestjs/common';
+import * as redisStore from 'cache-manager-redis-store';
+import { CacheModule, Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TodoModule } from './todo/todo.module';
@@ -22,6 +23,18 @@ const libModules = [
   ConfigModule.forRoot({
     load: [loadConfig],
     envFilePath: ['.env'],
+  }),
+  CacheModule.registerAsync({
+    imports: [ConfigModule],
+    inject: [ConfigService],
+    useFactory: (configService: ConfigService) => {
+      const { host, port } = configService.get('redis');
+      return {
+        store: redisStore,
+        host,
+        port,
+      };
+    },
   }),
   TypeOrmModule.forRootAsync({
     imports: [ConfigModule],

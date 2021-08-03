@@ -20,7 +20,7 @@ import { Role } from '../roles/roles.interface';
 import { RolesGuard } from '../auth/guards/roles.guard';
 import { User } from './entities/user.entity';
 
-@ApiTags('user')
+@ApiTags('用户详情')
 @ApiBearerAuth()
 @Controller('user')
 export class UserController {
