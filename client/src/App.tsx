@@ -1,4 +1,4 @@
-import React, {FC} from 'react'
+import React, { FC, useEffect, useState } from 'react';
 import {BrowserRouter as Router, Route, Switch, Link} from 'react-router-dom'
 import Todo from "./pages/Todo"
 import Login from "./pages/Login"
@@ -8,9 +8,25 @@ import AuthButton from "./Components/AuthButton"
 import PrivateRoute from "./Components/PrivateRoute"
 import Admin from './pages/Admin';
 import AdminRoute from './Components/AdminRoute';
+import http from './http';
+import { CountRsp } from '../types/Common';
 
 const App: FC = () => {
   const auth = useAuth();
+
+  const [count, setCount] = useState(0);
+
+  const updateAndGetCount = async () => {
+    http.post('/count').then();
+
+    const { data } = await http.get<CountRsp>('/count');
+    setCount(data.count);
+  }
+
+  useEffect(() => {
+    updateAndGetCount().then();
+  }, []);
+
   return (
     <AuthContext.Provider value={auth}>
       <Router>
@@ -20,6 +36,8 @@ const App: FC = () => {
           </header>
         )}
         <div>
+          <header>访问量：{count}</header>
+
           <AuthButton />
 
           <Switch>

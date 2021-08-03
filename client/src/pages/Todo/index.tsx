@@ -1,15 +1,15 @@
 import React, { FC, useEffect, useState } from "react";
-import { ITodo } from "../../../types/Todo";
+import { TodoItem } from "../../../types/Todo";
 import http from "../../http";
 import TodoForm from "../../Components/TodoForm";
 import List from "./List";
 
 const Todo: FC = () => {
   const [loading, setLoading] = useState<boolean>(false);
-  const [todos, setTodos] = useState<ITodo[]>([]);
+  const [todos, setTodos] = useState<TodoItem[]>([]);
 
   const [formType, setFormType] = useState<"add" | "update" | null>(null);
-  const [selected, setSelected] = useState<ITodo | undefined>();
+  const [selected, setSelected] = useState<TodoItem | undefined>();
 
   useEffect(() => {
     fetchTodos().then();
@@ -17,17 +17,17 @@ const Todo: FC = () => {
 
   const fetchTodos = async () => {
     setLoading(true);
-    const { data } = await http.get<ITodo[]>("/todo");
+    const { data } = await http.get<TodoItem[]>("/todo");
     setTodos(data);
     setLoading(false);
   };
 
-  const submitTodo = async (newTodo: Partial<ITodo>) => {
+  const submitTodo = async (newTodo: Partial<TodoItem>) => {
     setLoading(true);
     if (formType === "add") {
-      await http.post<ITodo>("/todo", newTodo);
+      await http.post<TodoItem>("/todo", newTodo);
     } else {
-      await http.patch<ITodo>(`/todo/${newTodo.id}`, newTodo);
+      await http.patch<TodoItem>(`/todo/${newTodo.id}`, newTodo);
     }
     setSelected(undefined);
     setFormType(null);
@@ -37,7 +37,7 @@ const Todo: FC = () => {
 
   const deleteTodo = async (id: number) => {
     setLoading(true);
-    await http.delete<ITodo>(`/todo/${id}`);
+    await http.delete<TodoItem>(`/todo/${id}`);
     setLoading(false);
     await fetchTodos();
   };

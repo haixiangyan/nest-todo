@@ -1,14 +1,14 @@
 import * as React from "react"
 import { ChangeEvent, FC, useEffect, useState } from "react";
-import {ITodo} from "../../../types/Todo"
+import {TodoItem} from "../../../types/Todo"
 import http from "../../http"
 
 interface Props {
-  onSubmit: (todo: Partial<ITodo>) => Promise<void>;
-  todo?: ITodo;
+  onSubmit: (todo: Partial<TodoItem>) => Promise<void>;
+  todo?: TodoItem;
 }
 
-const defaultTodo: Omit<ITodo, 'id'> = {
+const defaultTodo: Omit<TodoItem, 'id'> = {
   title: '',
   description: '',
   media: '',
@@ -19,7 +19,7 @@ const TodoForm: FC<Props> = (props) => {
   const { todo, onSubmit } = props;
 
   // 新待办
-  const [newTodo, setNewTodo] = useState<Omit<ITodo, 'id' | 'status'>>(defaultTodo);
+  const [newTodo, setNewTodo] = useState<Omit<TodoItem, 'id' | 'status'>>(defaultTodo);
 
   useEffect(() => {
     setNewTodo(todo || defaultTodo);

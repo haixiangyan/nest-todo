@@ -1,10 +1,10 @@
 import React, { FC } from "react";
-import { ITodo } from "../../../../types/Todo";
+import { TodoItem } from "../../../../types/Todo";
 
 interface Props {
-  todoList: ITodo[];
+  todoList: TodoItem[];
   onDelete: (id: number) => void;
-  onEdit: (todo: ITodo) => void;
+  onEdit: (todo: TodoItem) => void;
 }
 
 const List: FC<Props> = (props) => {
