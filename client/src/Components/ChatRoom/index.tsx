@@ -28,24 +28,22 @@ const ChatRoom: FC<Props> = (props) => {
   const [newMessage, setNewMessage] = useState<string>('');
   const [messages, setMessages] = useState<Message[]>([]);
 
+  const onServerToClient = (data: MessageData) => {
+    console.log('服务器消息', data);
+    setMessages([
+      ...messages,
+      { role: MessageRole.Server, createdAt: Date.now(), data: { content: data.content }}
+    ])
+  }
+
   const initWs = () => {
     socketRef.current = io(wsURL, { path: '/chat/socket.io' });
-    socketRef.current.on('connect', function() {
+    socketRef.current.on('connect', () => {
       console.log('WS 已连接');
-
-      if (socketRef.current) {
-        sendMsg('你好');
-      }
+      sendMsg('你好');
     });
-    socketRef.current.on('serverToClient', function(data) {
-      console.log('serverToClient', data);
-    });
-    socketRef.current.on('exception', function(data) {
-      console.error('WS 异常', data);
-    });
-    socketRef.current.on('disconnect', function() {
-      console.log('WS 已断开连接');
-    });
+    socketRef.current.on('exception', (data) => console.error('WS 异常', data));
+    socketRef.current.on('disconnect', () => console.log('WS 已断开连接'));
   }
 
   const closeSocket = () => {
@@ -73,10 +71,19 @@ const ChatRoom: FC<Props> = (props) => {
     }
   }
 
+  // 初始化 Web Socket
   useEffect(() => {
     initWs();
     return closeSocket;
   }, []);
+
+  // 绑定 Web Socket 事件
+  useEffect(() => {
+    socketRef.current?.on('serverToClient', onServerToClient);
+    return () => {
+      socketRef.current?.off('serverToClient', onServerToClient);
+    }
+  }, [messages]);
 
   useEffect(() => {
     if (chatRef.current) {

@@ -11,6 +11,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { ChatModule } from './chat/chat.module';
 import loadConfig from './config/configurations';
+import { ScheduleModule } from '@nestjs/schedule';
 
 const businessModules = [
   AuthModule,
@@ -26,6 +27,7 @@ const libModules = [
     load: [loadConfig],
     envFilePath: ['.env'],
   }),
+  ScheduleModule.forRoot(),
   CacheModule.registerAsync({
     imports: [ConfigModule],
     inject: [ConfigService],
