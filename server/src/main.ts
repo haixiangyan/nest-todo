@@ -48,7 +48,7 @@ async function bootstrap() {
 
   setupSwagger(app);
 
-  await app.listen(4200);
+  await app.listen(process.env.ENVIRONMENT === 'production' ? 80 : 4200);
 }
 
 bootstrap();
