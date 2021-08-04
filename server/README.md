@@ -7,7 +7,7 @@
 使用 Docker 开启一个 `mysql` 或者 `mariadb` 容器。
 
 ```shell
-docker run -p 127.0.0.1:3306:3306 --name nest-todo -e MARIADB_ROOT_PASSWORD=123456 -d mariadb:latest
+docker run -p 127.0.0.1:3306:3306 --name nest-todo-mariadb -e MARIADB_ROOT_PASSWORD=123456 -d mariadb:latest
 ```
 
 在 `mysql` 或者 `mariadb` 里添加 `nest_todo` 数据库。
@@ -31,7 +31,7 @@ npm run db:seed
 开始 Redis。
 
 ```shell
-docker run -p 127.0.0.1:6379:6379 --name some-redis -d redis
+docker run -p 127.0.0.1:6379:6379 --name nest-todo-redis -d redis
 ```
 
 最后，本地跑 Nest 项目。

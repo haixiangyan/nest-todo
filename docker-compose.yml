@@ -1,0 +1,56 @@
+version: '3'
+services:
+  client:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    container_name: 'nest-todo-client'
+    expose:
+      - 3000
+    ports:
+      - 3000:3000
+    volumes:
+      - ./client/src:/app/client/src
+      - ./client/public:/app/client/public
+    links:
+      - server
+    command: npm run start
+    restart: always
+  server:
+    # 构建目录
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    # 容器名
+    container_name: 'nest-todo-server'
+    # 暴露端口
+    expose:
+      - 4200
+    ports:
+      - 4200:4200
+    command: npm run start
+    # 环境变量
+    environment:
+      - ENVIRONMENT=production
+    restart: always
+    volumes:
+      - ./server/src:/app/server/src
+    depends_on:
+      - mariabd
+      - redis
+  mariabd:
+    image: mariadb
+    container_name: 'nest-todo-mariadb'
+    environment:
+      MARIADB_ROOT_PASSWORD: '123456'
+      MARIADB_DATABASE: 'nest_todo'
+    hostname: '127.0.0.1'
+    ports:
+      - 3306:3306
+    restart: always
+  redis:
+    image: redis
+    container_name: 'nest-todo-redis'
+    ports:
+      - 6379:6379
+    restart: always

@@ -1,23 +1,20 @@
-FROM node:14
+# server/Dockerfile-dev
 
-ENV ENVIRONMENT=production
+# Install node image in container
+FROM node
 
-# 定义工作目录
-WORKDIR /app
+# Create and set the working directory
+RUN mkdir -p /app/server
+WORKDIR /app/server
 
-# 安装依赖
-COPY package*.json ./
+# Copy the dependency files over
+COPY package*.json /app/server/
 
+# Install dependencies
 RUN npm install
 
-# 复制项目
-COPY . .
+# Copy the server files over
+COPY . /app/server/
 
-# 项目构建
-RUN npm run build
-
-# 暴露端口
-EXPOSE 80
-
-# 运行（入口）
-CMD ['node', './dist/src/main.js']
+# Command to run them
+CMD ["npm", "start"]
