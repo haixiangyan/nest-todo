@@ -14,6 +14,8 @@ import { ChatModule } from './chat/chat.module';
 import { ScheduleModule } from '@nestjs/schedule';
 import { QuoteModule } from './quote/quote.module';
 
+const DOCKER_ENV = process.env.DOCKER_ENV;
+
 const businessModules = [
   AuthModule,
   TodoModule,
@@ -27,7 +29,7 @@ const businessModules = [
 const libModules = [
   ConfigModule.forRoot({
     load: [loadConfig],
-    envFilePath: ['.env'],
+    envFilePath: [DOCKER_ENV ? '.docker.env' : '.env'],
   }),
   ScheduleModule.forRoot(),
   CacheModule.registerAsync({

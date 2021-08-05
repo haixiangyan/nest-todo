@@ -16,4 +16,4 @@ RUN npm install
 COPY . /app/client/
 
 # Runs the client
-CMD ["npm", "start"]
+CMD ["npm", "run", "start"]
