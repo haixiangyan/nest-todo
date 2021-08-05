@@ -1,20 +1,18 @@
-# server/Dockerfile-dev
-
-# Install node image in container
+# 使用 node 镜像
 FROM node
 
-# Create and set the working directory
+# 初始化工作目录
 RUN mkdir -p /app/server
 WORKDIR /app/server
 
-# Copy the dependency files over
+# 复制 package.json
 COPY package*.json /app/server/
 
-# Install dependencies
+# 安装依赖
 RUN npm install
 
-# Copy the server files over
+# 复制文件
 COPY . /app/server/
 
-# Command to run them
+# 开启 Dev
 CMD ["npm", "run", "start:dev"]

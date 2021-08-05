@@ -1,19 +1,18 @@
-# Installs the node image
+# 使用 node 镜像
 FROM node
 
-# Creates the client directory in the container
+# 准备工作目录
 RUN mkdir -p /app/client
-# Sets the working directory to the client directory
 WORKDIR /app/client
 
-# Copies the package.json to the container
+# 复制 package.json
 COPY package*.json /app/client/
 
-# Installs the client dependencies
+# 安装目录
 RUN npm install
 
-# Copies the files from the client directory to the container
+# 复制文件
 COPY . /app/client/
 
-# Runs the client
+# 开启 Dev
 CMD ["npm", "run", "start"]
