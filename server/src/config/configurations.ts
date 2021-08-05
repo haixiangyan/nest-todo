@@ -1,8 +1,6 @@
 const loadConfig = () => {
   const { env } = process;
 
-  console.log('env', env);
-
   return {
     db: {
       database: env.TYPEORM_DATABASE,

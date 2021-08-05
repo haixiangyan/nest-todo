@@ -3,15 +3,10 @@ services:
   client:
     build:
       context: ./client
-      dockerfile: Dockerfile
-    container_name: 'nest-todo-client'
-    expose:
-      - 3000
+      dockerfile: Prod_Dockerfile
+    container_name: 'nest-todo-prod-client'
     ports:
-      - 3000:3000
-    volumes:
-      - ./client/src:/app/client/src
-      - ./client/public:/app/client/public
+      - 80:80
     depends_on:
       - server
     restart: always
@@ -19,21 +14,18 @@ services:
     # 构建目录
     build:
       context: ./server
-      dockerfile: Dockerfile
+      dockerfile: Prod_Dockerfile
     # 容器名
-    container_name: 'nest-todo-server'
+    container_name: 'nest-todo-prod-server'
     # 暴露端口
     expose:
       - 4200
     ports:
       - 4200:4200
-    command: npm run start
     # 环境变量
     environment:
       - DOCKER_ENV=true
     restart: always
-    volumes:
-      - ./server/src:/app/server/src
     depends_on:
       - mariadb
       - redis

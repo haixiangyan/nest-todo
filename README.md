@@ -7,7 +7,7 @@
 使用 docker-compose 的方式来启动 client, server, redis, mariadb 4 个容器。
 
 ```shell
-docker-compose -f docker-compose.yml up -d
+docker-compose -f dev-docker-compose.yml up -d
 ```
 
 最后，初始化数据库结构和数据内容。
@@ -23,18 +23,20 @@ npm run migration:generate run
 npm run db:seed
 ```
 
+访问 [http://localhost:3000](http://localhost:3000) 即可。
+
 ## 本地运行（分块启动）
 
 启动 mariadb：
 
 ```shell
-docker-compose -f docker-compose.yml up -d mariadb
+docker-compose -f dev-docker-compose.yml up -d mariadb
 ```
 
 启动 redis：
 
 ```shell
-docker-compose -f docker-compose.yml up -d redis
+docker-compose -f dev-docker-compose.yml up -d redis
 ```
 
 初始化数据库并启动后端：
@@ -58,6 +60,22 @@ npm run start:dev
 ```shell
 cd client && npm run start
 ```
+
+## 生产部署
+
+```shell
+docker-compose -f prod-docker-compose.yml up -d
+```
+
+然后再次初始化数据库和数据：
+
+```shell
+npm run migration:run
+
+npm run db:seed
+```
+
+打开 [http://localhost](http://localhost) 即可访问。
 
 ## 技术栈
 
