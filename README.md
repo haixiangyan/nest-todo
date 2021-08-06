@@ -2,15 +2,18 @@
 
 使用 React.js + Nest.js 实现一个简单的 Todo App。
 
-## 本地运行（Docker 一键启动）
+## 本地运行
 
-使用 docker-compose 的方式来启动 client, server, redis, mariadb 4 个容器。
+使用 docker-compose 的方式来启动 redis, mariadb 2 个容器。
+
+> 一般来说本地开发都会使用 `npm run start` 这样的命令来启动项目，就不用放在 docker-compose 里一键启动了。
+> 不过，为了大家也能学习到怎么用 docker-compose 一键本地运行，所以也注释后的脚本放在 docker-compose 里了。
 
 ```shell
 docker-compose -f dev-docker-compose.yml up -d
 ```
 
-最后，初始化数据库结构和数据内容。
+然后，初始化数据库结构和数据内容。
 
 ```shell
 # 进入后端目录
@@ -23,43 +26,22 @@ npm run migration:generate run
 npm run db:seed
 ```
 
-访问 [http://localhost:3000](http://localhost:3000) 即可。
-
-## 本地运行（分块启动）
-
-启动 mariadb：
+开启后端。
 
 ```shell
-docker-compose -f dev-docker-compose.yml up -d mariadb
-```
-
-启动 redis：
-
-```shell
-docker-compose -f dev-docker-compose.yml up -d redis
-```
-
-初始化数据库并启动后端：
-
-```shell
-# 进入目录
-cd server 
-
-# 数据库迁移
-npm run migration:generate run
-
-# 插入初始数据
-npm run db:seed
-
-# 启动后端
+cd server
 npm run start:dev
 ```
 
-启动前端：
+最后，开启前端。
 
 ```shell
-cd client && npm run start
+cd client
+
+npm run start
 ```
+
+访问 [http://localhost:3000](http://localhost:3000) 即可。
 
 ## 生产部署
 
