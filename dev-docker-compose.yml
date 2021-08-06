@@ -27,7 +27,6 @@ services:
 #      - 4200
 #    ports:
 #      - 4200:4200
-#    command: npm run start
 #    # 环境变量
 #    environment:
 #      - DOCKER_ENV=true

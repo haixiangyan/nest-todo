@@ -13,7 +13,8 @@ export class TodoService {
     @InjectRepository(User) private userRepository: Repository<User>,
   ) {}
 
-  async create(createTodoDto: CreateTodoDto): Promise<Todo> {
+  async create(userId: number, createTodoDto: CreateTodoDto): Promise<Todo> {
+    const user = await this.userRepository.findOne(userId);
     const { title, description, media } = createTodoDto;
 
     const todo = new Todo();
@@ -21,8 +22,9 @@ export class TodoService {
     todo.description = description;
     todo.status = 1;
     todo.media = media;
+    todo.author = user;
 
-    return this.todoRepository.create(todo);
+    return this.todoRepository.save(todo);
   }
 
   async findAll(): Promise<Todo[]> {
