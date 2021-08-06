@@ -1,6 +1,5 @@
-import * as redisStore from 'cache-manager-redis-store';
 import loadConfig from './config/configurations';
-import { CacheModule, Module } from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TodoModule } from './todo/todo.module';
@@ -13,6 +12,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { ChatModule } from './chat/chat.module';
 import { ScheduleModule } from '@nestjs/schedule';
 import { QuoteModule } from './quote/quote.module';
+import { CountModule } from './count/count.module';
 
 const DOCKER_ENV = process.env.DOCKER_ENV;
 
@@ -24,6 +24,7 @@ const businessModules = [
   StaticModule,
   ChatModule,
   QuoteModule,
+  CountModule,
 ];
 
 const libModules = [
@@ -32,18 +33,6 @@ const libModules = [
     envFilePath: [DOCKER_ENV ? '.docker.env' : '.env'],
   }),
   ScheduleModule.forRoot(),
-  CacheModule.registerAsync({
-    imports: [ConfigModule],
-    inject: [ConfigService],
-    useFactory: (configService: ConfigService) => {
-      const { host, port } = configService.get('redis');
-      return {
-        store: redisStore,
-        host,
-        port,
-      };
-    },
-  }),
   TypeOrmModule.forRootAsync({
     imports: [ConfigModule],
     inject: [ConfigService],
