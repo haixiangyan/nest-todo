@@ -8,7 +8,7 @@ import {
 import { FileInterceptor } from '@nestjs/platform-express';
 import { Express } from 'express';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
-import { baseURL } from './constants';
+import { staticBaseUrl } from './constants';
 
 @ApiTags('文件上传')
 @ApiBearerAuth()
@@ -18,7 +18,7 @@ export class UploadController {
   @UseInterceptors(FileInterceptor('file'))
   uploadFile(@UploadedFile() file: Express.Multer.File) {
     return {
-      file: baseURL + file.originalname,
+      file: staticBaseUrl + file.originalname,
     };
   }
 
@@ -26,7 +26,7 @@ export class UploadController {
   @UseInterceptors(FileInterceptor('files'))
   uploadFiles(@UploadedFiles() files: Array<Express.Multer.File>) {
     return {
-      files: files.map((f) => baseURL + f.originalname),
+      files: files.map((f) => staticBaseUrl + f.originalname),
     };
   }
 }
