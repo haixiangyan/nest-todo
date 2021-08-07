@@ -8,6 +8,7 @@ import { LogInterceptor } from './log/log.interceptor';
 import { TransformInterceptor } from './transform/transform.interceptor';
 import { ReportLogger } from './log/ReportLogger';
 import { ValidationPipe } from '@nestjs/common';
+import { AllExceptionFilter } from './error/all-exception.filter';
 
 const setupSwagger = (app) => {
   const config = new DocumentBuilder()
@@ -39,7 +40,7 @@ async function bootstrap() {
   app.useStaticAssets(join(__dirname, '..', 'upload_dist'));
 
   app.setGlobalPrefix('api');
-  app.useGlobalFilters(new HttpExceptionFilter());
+  app.useGlobalFilters(new HttpExceptionFilter(), new AllExceptionFilter());
   app.useGlobalPipes(new ValidationPipe());
   app.useGlobalInterceptors(
     new LogInterceptor(reportLogger),
