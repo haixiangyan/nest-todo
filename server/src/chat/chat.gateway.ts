@@ -13,7 +13,7 @@ import { WsJwtAuthGuard } from '../auth/guards/ws-jwt-auth.guard';
 @WebSocketGateway({
   path: '/chat/socket.io',
   cors: {
-    origin: ['http://150.158.188.204', 'http://150.158.188.204:3000'],
+    origin: '*',
   },
 })
 export class ChatGateway {
