@@ -46,7 +46,7 @@ npm run start
 ## 生产部署
 
 ```shell
-docker-compose -f prod-docker-compose.yml up -d
+docker-compose -f prod-docker-compose.yml up -d --build
 ```
 
 然后再次初始化数据库和数据：
