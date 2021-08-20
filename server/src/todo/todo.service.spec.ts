@@ -1,28 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { TodoService } from './todo.service';
-import { Todo } from './entities/todo.entity';
-import { getRepositoryToken } from '@nestjs/typeorm';
-import { User } from '../user/entities/user.entity';
-
-const todo = new Todo();
-todo.id = 0;
-todo.title = 'title';
-todo.description = 'desc';
-const mockTodos: Todo[] = [todo];
-
-const user = new User();
-user.id = 0;
-user.username = 'Jack';
-user.email = 'Jack@qq.com';
-const mockUsers: User[] = [user];
-
-const mockTodoRepository = {
-  find: () => mockTodos,
-};
-
-const mockUserRepository = {
-  find: () => mockUsers,
-};
+import { mockTodoRepository, mockTodos, mockUserRepository } from './mock';
+import { TodoRepository } from '../db/repositories/TodoRepository';
+import { UserRepository } from '../db/repositories/UserRepository';
 
 describe('TodoService', () => {
   let service: TodoService;
@@ -32,11 +12,11 @@ describe('TodoService', () => {
       providers: [
         TodoService,
         {
-          provide: getRepositoryToken(Todo),
+          provide: TodoRepository,
           useValue: mockTodoRepository,
         },
         {
-          provide: getRepositoryToken(User),
+          provide: UserRepository,
           useValue: mockUserRepository,
         },
       ],
@@ -45,7 +25,7 @@ describe('TodoService', () => {
     service = module.get<TodoService>(TodoService);
   });
 
-  it('测试 findAll', async () => {
+  it('findAll', async () => {
     expect(service).toBeDefined();
     const returnTodos = await service.findAll();
     expect(returnTodos).toEqual(mockTodos);
