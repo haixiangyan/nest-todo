@@ -18,12 +18,15 @@ const createMockDB = () => {
   todo1.id = 0;
   todo1.title = 'todo1';
   todo1.description = 'desc1';
-  todo1.author = user1;
 
   const todo2 = new Todo();
   todo2.id = 1;
   todo2.title = 'todo2';
   todo2.description = 'desc2';
+
+  user1.todos = [todo1];
+  user2.todos = [todo2];
+  todo1.author = user1;
   todo2.author = user2;
 
   const mockUsers: User[] = [user1, user2];

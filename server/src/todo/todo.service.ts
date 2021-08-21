@@ -46,10 +46,12 @@ export class TodoService {
   async update(id: number, updateTodoDto: UpdateTodoDto) {
     const { title, description, status, media } = updateTodoDto;
 
-    return this.todoRepository.update(
-      { id },
-      { title, description, status, media },
-    );
+    return this.todoRepository.update(id, {
+      title,
+      description,
+      status,
+      media,
+    });
   }
 
   async remove(id: number) {

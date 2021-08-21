@@ -15,12 +15,9 @@ export class MockTodoRepository {
   async findOne(id: number): Promise<Todo> {
     return this.mockTodos.find((todo) => todo.id === id);
   }
-  async update(id: number, partialTodo: Partial<Todo>) {
+  async update(id: number, partialTodo: Partial<Todo>): Promise<Todo> {
     let targetTodo = this.mockTodos.find((todo) => todo.id === id);
-    targetTodo = {
-      ...targetTodo,
-      ...partialTodo,
-    };
+    targetTodo = Object.assign(targetTodo, partialTodo);
     return targetTodo;
   }
   async delete(id: number): Promise<Todo> {
