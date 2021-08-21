@@ -1,13 +1,17 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { TodoController } from './todo.controller';
 import { TodoService } from './todo.service';
-import { mockTodoRepository, mockTodos, mockUserRepository } from './mock';
 import { TodoRepository } from '../db/repositories/TodoRepository';
 import { UserRepository } from '../db/repositories/UserRepository';
+import { MockTodoRepository } from '../db/mock/MockTodoRepository';
+import { MockUserRepository } from '../db/mock/MockUserRepository';
+import { mockTodos } from '../db/mock/db';
 
 describe('TodoController', () => {
   let todoController: TodoController;
   let todoService: TodoService;
+  const mockTodoRepository = new MockTodoRepository();
+  const mockUserRepository = new MockUserRepository();
 
   beforeEach(async () => {
     const app: TestingModule = await Test.createTestingModule({
