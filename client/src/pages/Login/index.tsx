@@ -25,7 +25,7 @@ const Login: FC = () => {
 
   return (
     <div>
-      <h1>登陆页</h1>
+      <h1>登录页</h1>
 
       {msg && <p style={{ color: 'red' }}>{msg}</p>}
 
