@@ -11,7 +11,7 @@
 - [x] 配置文件模块，使用 ConfigModule 读取本地 ENV 变量
 - [x] 日志模块，ReportLogger 模拟日志上报
 - [x] 静态资源模块，使用 StaticModule 使现
-- [x] 用户身份验证：local 和 jst 两种策略
+- [x] 用户身份验证：local 和 jwt 两种策略
 - [x] 用户角色验证：区分普通用户和管理员两种角色
 - [x] Docker 部署环境
 - [x] Swagger 构建 API 文档
