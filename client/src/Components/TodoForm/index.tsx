@@ -53,7 +53,7 @@ const TodoForm: FC<Props> = (props) => {
         />
       </div>
       <div>
-        <input onChange={onUploadChange} type="file"/>
+        <input accept="image/*" onChange={onUploadChange} type="file"/>
       </div>
       {newTodo.media && (
         <div>
