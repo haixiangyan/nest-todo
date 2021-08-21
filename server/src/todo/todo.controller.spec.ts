@@ -5,15 +5,20 @@ import { TodoRepository } from '../db/repositories/TodoRepository';
 import { UserRepository } from '../db/repositories/UserRepository';
 import { MockTodoRepository } from '../db/mock/MockTodoRepository';
 import { MockUserRepository } from '../db/mock/MockUserRepository';
-import { mockTodos } from '../db/mock/db';
+import createMockDB from '../db/mock/db';
+
+const { mockTodos, mockUsers } = createMockDB();
 
 describe('TodoController', () => {
   let todoController: TodoController;
   let todoService: TodoService;
-  const mockTodoRepository = new MockTodoRepository();
-  const mockUserRepository = new MockUserRepository();
+  let mockTodoRepository;
+  let mockUserRepository;
 
   beforeEach(async () => {
+    mockTodoRepository = new MockTodoRepository(mockTodos);
+    mockUserRepository = new MockUserRepository(mockUsers);
+
     const app: TestingModule = await Test.createTestingModule({
       controllers: [TodoController],
       providers: [

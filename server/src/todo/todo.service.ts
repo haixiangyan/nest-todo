@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { CreateTodoDto } from './dto/create-todo.dto';
 import { UpdateTodoDto } from './dto/update-todo.dto';
-import { Todo } from './entities/todo.entity';
+import { Todo, TodoStatus } from './entities/todo.entity';
 import { TodoRepository } from '../db/repositories/TodoRepository';
 import { UserRepository } from '../db/repositories/UserRepository';
 
@@ -19,7 +19,7 @@ export class TodoService {
     const todo = new Todo();
     todo.title = title;
     todo.description = description;
-    todo.status = 1;
+    todo.status = createTodoDto.status || TodoStatus.TODO;
     todo.media = media;
     todo.author = user;
 

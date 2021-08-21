@@ -1,11 +1,34 @@
 import { Todo } from '../../todo/entities/todo.entity';
-import { mockTodos } from './db';
 
 export class MockTodoRepository {
-  find(): Todo[] {
-    return mockTodos;
+  private mockTodos: Todo[] = [];
+  constructor(mockTodos: Todo[]) {
+    this.mockTodos = mockTodos;
   }
-  findAllByUserId(userId: number): Todo[] {
-    return mockTodos.filter((todo) => todo.author.id == userId);
+  async save(todo: Todo): Promise<Todo> {
+    this.mockTodos.push(todo);
+    return todo;
+  }
+  async find(): Promise<Todo[]> {
+    return this.mockTodos;
+  }
+  async findOne(id: number): Promise<Todo> {
+    return this.mockTodos.find((todo) => todo.id === id);
+  }
+  async update(id: number, partialTodo: Partial<Todo>) {
+    let targetTodo = this.mockTodos.find((todo) => todo.id === id);
+    targetTodo = {
+      ...targetTodo,
+      ...partialTodo,
+    };
+    return targetTodo;
+  }
+  async delete(id: number): Promise<Todo> {
+    const deletedTodo = this.mockTodos.find((todo) => todo.id === id);
+    const deletedIndex = this.mockTodos.indexOf(deletedTodo);
+
+    this.mockTodos = this.mockTodos.splice(deletedIndex, 1);
+
+    return deletedTodo;
   }
 }
