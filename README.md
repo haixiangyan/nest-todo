@@ -63,6 +63,32 @@ npm run db:seed
 
 打开 [http://localhost](http://localhost) 即可访问。
 
+## 测试
+
+目前只有 `/server` Nest.js 的服务有提供测试（毕竟这是个 Nest.js 的练手项目），所以第一步先进入 `/server` 目录。
+
+```shell
+cd server # 进入 server
+```
+
+### 单元测试
+
+Nest.js 提供了 [Jest](https://jestjs.io/) 来写单元测试。
+
+```shell
+npm run test
+```
+
+### e2e 测试
+
+[Jest](https://jestjs.io/) 依然可以用来写 e2e 测试，这里还要配合 [supertest](https://www.npmjs.com/package/supertest) 这个库来编写测试用例。
+
+**注意：在运行 e2d 测试前，需要先启动缓存和数据库，具体请看上面的 docker 运行。**
+
+```shell
+npm run test:e2e
+```
+
 ## 技术栈
 
 ### 前端
@@ -93,5 +119,5 @@ npm run db:seed
 - [x] Error 模块，出错时，拦截错误，并按一定格式输出
 - [x] Transform 模块，以规定格式返回数据
 - [x] Task Scheduling 定时推送消息
-- [ ] 编写单元测试
-- [ ] 编写 e2e 测试
+- [x] 编写单元测试
+- [x] 编写 e2e 测试
