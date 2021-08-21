@@ -49,8 +49,8 @@ export class TodoService {
     return this.todoRepository.update(id, {
       title,
       description,
-      status,
-      media,
+      status: status || TodoStatus.TODO,
+      media: media || '',
     });
   }
 

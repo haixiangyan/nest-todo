@@ -22,7 +22,7 @@ export class TodoController {
   constructor(private readonly todoService: TodoService) {}
 
   @Post()
-  create(
+  async create(
     @Request() request,
     @Body() createTodoDto: CreateTodoDto,
   ): Promise<Todo> {
@@ -30,7 +30,7 @@ export class TodoController {
   }
 
   @Get()
-  findAll(@Request() request): Promise<Todo[]> {
+  async findAll(@Request() request): Promise<Todo[]> {
     const { id, is_admin } = request.user;
 
     if (is_admin === 1) {
@@ -41,20 +41,22 @@ export class TodoController {
   }
 
   @Get(':id')
-  findOne(@Param('id', ParseIntPipe) id: number): Promise<Todo> {
+  async findOne(@Param('id', ParseIntPipe) id: number): Promise<Todo> {
     return this.todoService.findOne(id);
   }
 
   @Patch(':id')
-  update(
+  async update(
     @Param('id', ParseIntPipe) id: number,
     @Body() updateTodoDto: UpdateTodoDto,
   ) {
-    return this.todoService.update(id, updateTodoDto);
+    await this.todoService.update(id, updateTodoDto);
+    return updateTodoDto;
   }
 
   @Delete(':id')
-  remove(@Param('id', ParseIntPipe) id: number) {
-    return this.todoService.remove(id);
+  async remove(@Param('id', ParseIntPipe) id: number) {
+    await this.todoService.remove(id);
+    return { id };
   }
 }
