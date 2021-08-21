@@ -119,3 +119,7 @@ npm run test:e2e
 
 * Nest.js
 * TypeScript
+* TypeORM
+* MariaDB
+* Redis
+* Swagger
