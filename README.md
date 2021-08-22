@@ -42,7 +42,7 @@ docker-compose -f dev-docker-compose.yml up -d
 cd server
 
 # 数据库迁移
-npm run migration:generate run
+npm run migration:run
 
 # 插入初始数据
 npm run db:seed
