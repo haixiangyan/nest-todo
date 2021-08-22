@@ -65,7 +65,7 @@ npm run start
 
 访问 [http://localhost:3000](http://localhost:3000) 即可。
 
-## 生产部署
+## 生产部署（可忽略）
 
 ```shell
 docker-compose -f prod-docker-compose.yml up -d --build
