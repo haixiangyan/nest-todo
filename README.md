@@ -2,6 +2,9 @@
 
 使用 React.js + Nest.js 实现一个简单的 Todo App。
 
+## 样例
+
+![](./screenshots/preview.webp)
 
 ## 功能
 
