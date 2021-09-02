@@ -6,6 +6,13 @@
 
 ![](./screenshots/preview.webp)
 
+## 基础账号
+
+| 用户 | 密码 | 角色 |
+|---|---|---|
+| user | user | 普通用户 |
+| admin | admin | 管理员 |
+
 ## 功能
 
 - [x] user 和 todo 两个资源的 CRUD 接口
