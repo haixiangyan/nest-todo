@@ -2,16 +2,19 @@
 
 使用 React.js + Nest.js 实现一个简单的 Todo App。
 
-## 样例
-
-![](./screenshots/preview.webp)
 
 ## 基础账号
+
+测试数据会默认添加 user 和 admin 两个用户，当然还会有 100 多个测试账号，下面是这两个账号的 `username` 和 `password` （密码在入库时做了 digest）。
 
 | 用户 | 密码 | 角色 |
 |---|---|---|
 | user | user | 普通用户 |
 | admin | admin | 管理员 |
+
+## 样例
+
+![](./screenshots/preview.webp)
 
 ## 功能
 
