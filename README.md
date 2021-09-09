@@ -16,6 +16,10 @@
 
 ![](./screenshots/preview.webp)
 
+* 前端：localhost:3000
+* 后端：localhost:4200
+* Swagger 文档：localhost:4200/docs
+
 ## 功能
 
 - [x] user 和 todo 两个资源的 CRUD 接口
