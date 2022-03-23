@@ -41,7 +41,10 @@ async function bootstrap() {
 
   app.setGlobalPrefix('api');
   app.useGlobalFilters(new HttpExceptionFilter(), new AllExceptionFilter());
-  app.useGlobalPipes(new ValidationPipe());
+  app.useGlobalPipes(new ValidationPipe({
+    // fix parameter escape    
+    whitelist: true,
+  }));
   app.useGlobalInterceptors(
     new LogInterceptor(reportLogger),
     new TransformInterceptor(),
