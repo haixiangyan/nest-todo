@@ -118,7 +118,7 @@ npm run test
 
 [Jest](https://jestjs.io/) 依然可以用来写 e2e 测试，这里还要配合 [supertest](https://www.npmjs.com/package/supertest) 这个库来编写测试用例。
 
-**注意：在运行 e2d 测试前，需要先启动缓存和数据库，具体请看上面的 docker 运行。**
+**注意：在运行 e2e 测试前，需要先启动缓存和数据库，具体请看上面的 docker 运行。**
 
 ```shell
 npm run test:e2e
